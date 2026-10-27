@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { AuthLoader } from './Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import { MailCheck, LoaderCircle, ShieldCheck, ArrowLeft, CheckCircle2, ArrowRight, Send } from 'lucide-react';
 import { supabase } from './supabase';
@@ -116,7 +117,7 @@ export function RegisterSuccess({ auth }) {
             <Link className="primary verify-button" to="/dashboard">Open my store <ArrowRight size={17} /></Link>
           </>
         ) : working ? (
-          <div className="loading"><LoaderCircle className="spin" /> Creating your company workspace…</div>
+          <AuthLoader label="Creating your company workspace…" />
         ) : auth.session ? (
           <button className="primary verify-button" onClick={auth.refresh}>Try again</button>
         ) : (

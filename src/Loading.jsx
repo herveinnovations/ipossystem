@@ -29,3 +29,22 @@ export function Skeleton({ label = 'Loading…', kind = 'table', rows = 6 }) {
     </div>
   );
 }
+
+/** Four-dot spinning loader (design from Uiverse.io by AbanoubMagdy1), in iPOS colours. */
+export function DotsLoader({ size }) {
+  return (
+    <span className="dots-loader" style={size ? { '--dim': size } : undefined} aria-hidden="true">
+      <i /><i /><i /><i />
+    </span>
+  );
+}
+
+/** Full-screen loading screen used while signing in, signing up and opening the store. */
+export function AuthLoader({ label = 'Loading…' }) {
+  return (
+    <div className="auth-loader" role="status" aria-live="polite" aria-busy="true">
+      <DotsLoader />
+      <p>{label}</p>
+    </div>
+  );
+}
