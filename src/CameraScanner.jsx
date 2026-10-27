@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { X, Flashlight, FlashlightOff, SwitchCamera, ScanLine, CheckCircle2, AlertCircle, LoaderCircle } from 'lucide-react';
+import { DotsLoader } from './Loading';
+import { X, Flashlight, FlashlightOff, SwitchCamera, ScanLine, CheckCircle2, AlertCircle } from 'lucide-react';
 import { SCAN_FORMATS, cleanCode, toLuminance, makeRepeatGuard, cameraErrorMessage } from './barcode-utils';
 
 // Picks the fastest decoder this device offers: the phone's built-in barcode
@@ -173,7 +174,7 @@ export default function CameraScanner({ onCode, onClose, continuous = false, tit
             {state === 'scanning' && <span className="scanner-laser" />}
           </div>
         )}
-        {state === 'starting' && <div className="scanner-status"><LoaderCircle size={18} className="spin" /> Starting camera…</div>}
+        {state === 'starting' && <div className="scanner-status"><DotsLoader size={18} /> Starting camera…</div>}
         {state === 'error' && (
           <div className="scanner-error" role="alert">
             <AlertCircle size={28} />

@@ -1,7 +1,8 @@
 import { t as tr } from './i18n';
+import { DotsLoader } from './Loading';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Plus, X, RefreshCw, LoaderCircle, AlertCircle, Users, Wallet, Phone, Pencil, Receipt, Megaphone, Download } from 'lucide-react';
+import { Search, Plus, X, RefreshCw, AlertCircle, Users, Wallet, Phone, Pencil, Receipt, Megaphone, Download } from 'lucide-react';
 import * as api from './api';
 import { paymentMethods } from './totals';
 import { toast } from './Toast';
@@ -72,7 +73,7 @@ export function CustomerForm({ auth, customer, onClose, onSaved }) {
         </div>
         <div className="modal-actions">
           <button type="button" className="secondary" disabled={busy} onClick={onClose}>Cancel</button>
-          <button className="primary" disabled={busy}>{busy ? <><LoaderCircle size={16} className="spin" /> Saving…</> : 'Save customer'}</button>
+          <button className="primary" disabled={busy}>{busy ? <><DotsLoader size={16} tone="current" /> Saving…</> : 'Save customer'}</button>
         </div>
       </form>
     </div>
@@ -109,7 +110,7 @@ function PaymentForm({ auth, customer, onDone }) {
       </div>
       <button type="button" className="link-button" onClick={() => { setAmount(String(customer.balance)); request.current = null; }}>Pay full balance ({money(customer.balance, currency)})</button>
       <label>Note (optional)<input maxLength={300} value={note} onChange={e => setNote(e.target.value)} placeholder="e.g. Paid at the counter" /></label>
-      <button className="primary" disabled={busy}>{busy ? <><LoaderCircle size={16} className="spin" /> Saving…</> : <><Wallet size={16} /> Record payment</>}</button>
+      <button className="primary" disabled={busy}>{busy ? <><DotsLoader size={16} tone="current" /> Saving…</> : <><Wallet size={16} /> Record payment</>}</button>
       <small>Recorded in the Cashbook as a customer repayment. It does not change the cashier's shift cash.</small>
     </form>
   );
@@ -138,7 +139,7 @@ function CustomerDetail({ auth, customerId, onClose, onChanged }) {
           </div>
         </div>
         <ErrorBox text={error} />
-        {!c ? (!error && <div className="insights-loading"><LoaderCircle size={18} className="spin" /> Loading customer…</div>) : (
+        {!c ? (!error && <div className="insights-loading"><DotsLoader size={18} /> Loading customer…</div>) : (
           <>
             <div className="customer-summary">
               <div className={'owed-card' + (Number(c.balance) > 0 ? ' owing' : '')}>
@@ -243,7 +244,7 @@ export function Customers({ auth }) {
             <button className="icon-button" aria-label="Refresh customers" onClick={customers.reload}><RefreshCw size={18} /></button>
           </div>
         </div>
-        {customers.loading ? <div className="insights-loading"><LoaderCircle size={18} className="spin" /> Loading customers…</div> : list.length ? (
+        {customers.loading ? <div className="insights-loading"><DotsLoader size={18} /> Loading customers…</div> : list.length ? (
           <div className="table-scroll">
             <table className="customer-table">
               <thead><tr><th>Name</th><th>Phone</th><th>Owes</th><th>Credit limit</th><th>Offers</th><th></th></tr></thead>

@@ -31,9 +31,9 @@ export function Skeleton({ label = 'Loading…', kind = 'table', rows = 6 }) {
 }
 
 /** Four-dot spinning loader (design from Uiverse.io by AbanoubMagdy1), in iPOS colours. */
-export function DotsLoader({ size }) {
+export function DotsLoader({ size, tone }) {
   return (
-    <span className="dots-loader" style={size ? { '--dim': size } : undefined} aria-hidden="true">
+    <span className={'dots-loader' + (tone === 'current' ? ' dots-current' : '')} style={size ? { '--dim': typeof size === 'number' ? size + 'px' : size } : undefined} aria-hidden="true">
       <i /><i /><i /><i />
     </span>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { AuthLoader } from './Loading';
+import {AuthLoader,DotsLoader} from './Loading';
 import { Link, useNavigate } from 'react-router-dom';
-import { MailCheck, LoaderCircle, ShieldCheck, ArrowLeft, CheckCircle2, ArrowRight, Send } from 'lucide-react';
+import { MailCheck, ShieldCheck, ArrowLeft, CheckCircle2, ArrowRight, Send } from 'lucide-react';
 import { supabase } from './supabase';
 import Brand from './Brand';
 import { readVerifyLink, verifyErrorMessage } from './verify-utils';
@@ -74,7 +74,7 @@ export function EmailVerify() {
         {error && <div className="notice" role="alert">{error}</div>}
         {(state === 'ready' || state === 'working' || state === 'done') && (
           <button className="primary verify-button" onClick={confirm} disabled={state !== 'ready'} autoFocus>
-            {state === 'ready' ? <>{action} <ArrowRight size={17} /></> : <><LoaderCircle size={17} className="spin" /> Confirming…</>}
+            {state === 'ready' ? <>{action} <ArrowRight size={17} /></> : <><DotsLoader size={17} tone="current" /> Confirming…</>}
           </button>
         )}
         {(state === 'failed' || state === 'missing') && link.type !== 'magiclink' && (
@@ -84,7 +84,7 @@ export function EmailVerify() {
             <form className="verify-resend" onSubmit={sendNew}>
               <label>Email address<input type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)} /></label>
               {resend.error && <div className="notice" role="alert">{resend.error}</div>}
-              <button className="primary" disabled={resend.busy || !supabase}>{resend.busy ? <><LoaderCircle size={17} className="spin" /> Sending…</> : <><Send size={16} /> Send a new link</>}</button>
+              <button className="primary" disabled={resend.busy || !supabase}>{resend.busy ? <><DotsLoader size={17} tone="current" /> Sending…</> : <><Send size={16} /> Send a new link</>}</button>
             </form>
           )
         )}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MessageSquare, X, LoaderCircle, Send } from 'lucide-react';
+import { DotsLoader } from './Loading';
+import { MessageSquare, X, Send } from 'lucide-react';
 import { supabase } from './supabase';
 import { toast } from './Toast';
 import { describeDevice, cleanPage } from './telemetry-utils';
@@ -51,7 +52,7 @@ function FeedbackForm({ auth, onClose }) {
         <small className="muted">We also see which page you were on and your type of device.</small>
         <div className="modal-actions">
           <button type="button" className="secondary" onClick={onClose} disabled={busy}>Cancel</button>
-          <button className="primary" disabled={busy}>{busy ? <><LoaderCircle size={16} className="spin" /> Sending…</> : <><Send size={16} /> Send</>}</button>
+          <button className="primary" disabled={busy}>{busy ? <><DotsLoader size={16} tone="current" /> Sending…</> : <><Send size={16} /> Send</>}</button>
         </div>
       </form>
     </div>

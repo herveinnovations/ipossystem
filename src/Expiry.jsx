@@ -1,7 +1,7 @@
-import { Skeleton } from './Loading';
+import {Skeleton,DotsLoader} from './Loading';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { CalendarClock, AlertTriangle, LoaderCircle, AlertCircle, X, Trash2, Plus, RefreshCw } from 'lucide-react';
+import { CalendarClock, AlertTriangle, AlertCircle, X, Trash2, Plus, RefreshCw } from 'lucide-react';
 import { supabase } from './supabase';
 import * as api from './api';
 import { toast } from './Toast';
@@ -186,7 +186,7 @@ function TagForm({ auth, products, batches, onClose, onDone }) {
         </div>
         <div className="modal-actions">
           <button type="button" className="secondary" onClick={onClose} disabled={busy}>Cancel</button>
-          <button className="primary" disabled={busy}>{busy ? <><LoaderCircle size={16} className="spin" /> Saving…</> : 'Save expiry date'}</button>
+          <button className="primary" disabled={busy}>{busy ? <><DotsLoader size={16} tone="current" /> Saving…</> : 'Save expiry date'}</button>
         </div>
       </form>
     </div>

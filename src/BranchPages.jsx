@@ -1,7 +1,7 @@
-import { Skeleton } from './Loading';
+import {Skeleton,DotsLoader} from './Loading';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { Store, MapPin, Plus, X, LoaderCircle, AlertCircle, ArrowRight, Truck, PackageCheck, Ban, Pencil, Users, RefreshCw, Search, Trash2 } from 'lucide-react';
+import { Store, MapPin, Plus, X, AlertCircle, ArrowRight, Truck, PackageCheck, Ban, Pencil, Users, RefreshCw, Search, Trash2 } from 'lucide-react';
 import * as api from './api';
 import { toast } from './Toast';
 import { ALL, branchName, branchSummary, saveBranch, listStaffBranches, setStaffBranch, loadTransfers, sendTransfer, receiveTransfer, cancelTransfer, transferTotals } from './branches';
@@ -77,7 +77,7 @@ function BranchesContent({ auth }) {
         </div>
       </div>
       <ErrorBox text={error} />
-      {!rows ? <div className="insights-loading"><LoaderCircle size={18} className="spin" /> Loading branches…</div> : (
+      {!rows ? <div className="insights-loading"><DotsLoader size={18} /> Loading branches…</div> : (
         <>
           {rows.length > 1 && (
             <div className="stat-grid branch-stats">
@@ -151,7 +151,7 @@ function BranchForm({ auth, branch, onClose, onSaved }) {
         <div className="modal-actions">
           {form.id && !branch.is_main && <button type="button" className="secondary danger-text" disabled={busy} onClick={() => { if (window.confirm(`Close ${form.name}? It must have no stock, staff, open shifts or transfers in transit.`)) save(null, false); }}>Close branch</button>}
           <button type="button" className="secondary" onClick={onClose} disabled={busy}>Cancel</button>
-          <button className="primary" disabled={busy}>{busy ? <><LoaderCircle size={16} className="spin" /> Saving…</> : 'Save branch'}</button>
+          <button className="primary" disabled={busy}>{busy ? <><DotsLoader size={16} tone="current" /> Saving…</> : 'Save branch'}</button>
         </div>
       </form>
     </div>
@@ -179,7 +179,7 @@ function StaffBranches({ auth }) {
     <section className="table-panel staff-branches">
       <div className="table-toolbar"><h2><Users size={18} /> Who works where</h2></div>
       <ErrorBox text={error} />
-      {!staff ? <div className="insights-loading"><LoaderCircle size={18} className="spin" /> Loading staff…</div> : (
+      {!staff ? <div className="insights-loading"><DotsLoader size={18} /> Loading staff…</div> : (
         <div className="table-scroll">
           <table className="customer-table">
             <thead><tr><th>Name</th><th>Role</th><th>Branch</th></tr></thead>
@@ -246,7 +246,7 @@ function TransfersContent({ auth }) {
         <button role="tab" aria-selected={tab === 'transit'} className={tab === 'transit' ? 'active' : ''} onClick={() => setTab('transit')}>In transit{list ? ` (${list.filter(t => t.status === 'sent').length})` : ''}</button>
         <button role="tab" aria-selected={tab === 'done'} className={tab === 'done' ? 'active' : ''} onClick={() => setTab('done')}>History</button>
       </div>
-      {!list ? <div className="insights-loading"><LoaderCircle size={18} className="spin" /> Loading transfers…</div> : !shown.length ? (
+      {!list ? <div className="insights-loading"><DotsLoader size={18} /> Loading transfers…</div> : !shown.length ? (
         <div className="empty"><Truck size={33} /><h3>{tab === 'transit' ? 'Nothing in transit' : 'No transfers yet'}</h3><p>{tab === 'transit' ? 'Stock you send to another branch shows here until it is received.' : 'Received and cancelled transfers show here.'}</p></div>
       ) : (
         <div className="transfer-list">
@@ -345,7 +345,7 @@ function TransferForm({ auth, onClose, onSent }) {
         <label>Notes (optional)<input maxLength={300} placeholder="e.g. sent with Joseph by bus" value={notes} onChange={e => setNotes(e.target.value)} /></label>
         <div className="modal-actions">
           <button type="button" className="secondary" onClick={onClose} disabled={busy}>Cancel</button>
-          <button className="primary" disabled={busy || !lines.length}>{busy ? <><LoaderCircle size={16} className="spin" /> Sending…</> : <><Truck size={16} /> Send stock</>}</button>
+          <button className="primary" disabled={busy || !lines.length}>{busy ? <><DotsLoader size={16} tone="current" /> Sending…</> : <><Truck size={16} /> Send stock</>}</button>
         </div>
       </form>
     </div>
@@ -385,7 +385,7 @@ function ReceiveForm({ auth, transfer: t, name, onClose, onDone }) {
         <label>Notes {short ? '(required)' : '(optional)'}<input maxLength={300} value={notes} onChange={e => setNotes(e.target.value)} placeholder={short ? 'e.g. 2 bottles broken on the way' : ''} /></label>
         <div className="modal-actions">
           <button type="button" className="secondary" onClick={onClose} disabled={busy}>Cancel</button>
-          <button className="primary" disabled={busy}>{busy ? <><LoaderCircle size={16} className="spin" /> Saving…</> : <><PackageCheck size={16} /> Confirm received</>}</button>
+          <button className="primary" disabled={busy}>{busy ? <><DotsLoader size={16} tone="current" /> Saving…</> : <><PackageCheck size={16} /> Confirm received</>}</button>
         </div>
       </form>
     </div>

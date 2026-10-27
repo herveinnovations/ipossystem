@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { DotsLoader } from './Loading';
 import { Link, Navigate } from 'react-router-dom';
-import { PackageX, RefreshCw, LoaderCircle, AlertCircle, ShoppingBag, MessageCircle, CheckCircle2, Truck } from 'lucide-react';
+import { PackageX, RefreshCw, AlertCircle, ShoppingBag, MessageCircle, CheckCircle2, Truck } from 'lucide-react';
 import * as api from './api';
 import { list, rpc } from './operations';
 import { toast } from './Toast';
@@ -130,7 +131,7 @@ function ReorderContent({ auth }) {
         </div>
       ))}
 
-      {loading && !data ? <div className="insights-loading"><LoaderCircle size={18} className="spin" /> Checking your stock and recent sales…</div> : !rows.length ? (
+      {loading && !data ? <div className="insights-loading"><DotsLoader size={18} /> Checking your stock and recent sales…</div> : !rows.length ? (
         <div className="empty"><CheckCircle2 size={33} /><h3>Nothing to reorder</h3><p>Every product is above its low-stock level and has more than a week of stock at current sales.</p></div>
       ) : (
         <>
@@ -183,7 +184,7 @@ function ReorderContent({ auth }) {
                     <small>{g.items.length} {g.items.length === 1 ? 'product' : 'products'}{s ? ' · ' + money(total, currency) : ' · choose a supplier in the list above'}</small>
                   </div>
                   <button className="primary" disabled={!s || Boolean(busy)} onClick={() => order(g)}>
-                    {busy && busy === g.supplier_id ? <><LoaderCircle size={17} className="spin" /> Creating…</> : <><ShoppingBag size={17} /> Create purchase order</>}
+                    {busy && busy === g.supplier_id ? <><DotsLoader size={17} tone="current" /> Creating…</> : <><ShoppingBag size={17} /> Create purchase order</>}
                   </button>
                 </section>
               );

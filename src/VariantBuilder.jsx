@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { X, LoaderCircle, AlertCircle, Layers } from 'lucide-react';
+import { DotsLoader } from './Loading';
+import { X, AlertCircle, Layers } from 'lucide-react';
 import * as api from './api';
 import { supabase } from './supabase';
 import { toast } from './Toast';
@@ -123,7 +124,7 @@ export default function VariantBuilder({ auth, product, products, onClose, onSav
         {auth.multiBranch && <p className="muted">Starting stock goes to {branchName(auth.branches, target)}.</p>}
         <div className="modal-actions">
           <button type="button" className="secondary" onClick={onClose} disabled={busy}>Cancel</button>
-          <button className="primary" disabled={busy || !rows.length}>{busy ? <><LoaderCircle size={16} className="spin" /> Saving…</> : `Save ${rows.length || ''} ${rows.length === 1 ? 'variant' : 'variants'}`}</button>
+          <button className="primary" disabled={busy || !rows.length}>{busy ? <><DotsLoader size={16} tone="current" /> Saving…</> : `Save ${rows.length || ''} ${rows.length === 1 ? 'variant' : 'variants'}`}</button>
         </div>
       </form>
     </div>
