@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { LogOut, RefreshCw, LoaderCircle, Store, Users, Activity, Bug, MessageSquare, Globe2, AlertCircle, ChevronDown, Check, Search, ShieldCheck, WifiOff } from 'lucide-react';
+import { DotsLoader, AuthLoader } from './Loading';
+import { startButtonLoading } from './button-loading';
+import { LogOut, RefreshCw, Store, Users, Activity, Bug, MessageSquare, Globe2, AlertCircle, ChevronDown, Check, Search, ShieldCheck, WifiOff } from 'lucide-react';
 import { supabase } from './supabase';
 import { WorldMap, countryName } from './WorldMap';
 import { CREATOR_EMAIL, presenceStatus, ago, groupCrashes, visitsByDay, signupsByDay, places, flag } from './utils';
@@ -44,7 +46,7 @@ function SignIn({ notice }) {
         {error && <div className="note bad" role="alert"><AlertCircle size={16} /> {error}</div>}
         <label>Email<input type="email" required autoComplete="username" value={email} onChange={e => setEmail(e.target.value)} /></label>
         {mode !== 'reset' && <label>Password<input type="password" required minLength={mode === 'setup' ? 10 : 6} autoComplete={mode === 'setup' ? 'new-password' : 'current-password'} value={password} onChange={e => setPassword(e.target.value)} /></label>}
-        <button className="btn primary" disabled={busy}>{busy ? <LoaderCircle size={16} className="spin" /> : null}{mode === 'in' ? 'Sign in' : mode === 'setup' ? 'Create password' : 'Send reset link'}</button>
+        <button className="btn primary" disabled={busy}>{busy ? <DotsLoader size={16} tone="current" /> : null}{mode === 'in' ? 'Sign in' : mode === 'setup' ? 'Create password' : 'Send reset link'}</button>
         <div className="auth-links">
           {mode === 'in' ? <>
             <button type="button" onClick={() => { setMode('setup'); setError(''); }}>First time? Create your password</button>
@@ -53,6 +55,7 @@ function SignIn({ notice }) {
         </div>
         <p className="fine">Private console for the iPOS creator. Shops and staff can't open it.</p>
       </form>
+      {busy && <AuthLoader label={mode === 'in' ? 'Signing you in…' : mode === 'setup' ? 'Saving your password…' : 'Sending reset link…'} />}
     </div>
   );
 }
@@ -143,14 +146,14 @@ function Console({ session }) {
         <nav className="jump">{[['live', 'Live'], ['map', 'Map'], ['crashes', 'Crashes'], ['shops', 'Shops'], ['users', 'Users & emails'], ['feedback', 'Feedback']].map(([id, l]) => <a key={id} href={'#' + id}>{l}</a>)}</nav>
         <div className="top-right">
           <select aria-label="Period" value={days} onChange={e => setDays(Number(e.target.value))}>{PERIODS.map(([v, l]) => <option key={v} value={v}>Last {l}</option>)}</select>
-          <button className="icon" aria-label="Refresh" onClick={reload}>{loading ? <LoaderCircle size={17} className="spin" /> : <RefreshCw size={17} />}</button>
+          <button className="icon" aria-label="Refresh" onClick={reload}>{loading ? <DotsLoader size={17} tone="current" /> : <RefreshCw size={17} />}</button>
           <span className="who" title={session.user.email}><ShieldCheck size={15} /> {session.user.email}</span>
           <button className="icon" aria-label="Sign out" onClick={() => supabase.auth.signOut()}><LogOut size={17} /></button>
         </div>
       </header>
       <main>
         {error && <div className="note bad" role="alert"><AlertCircle size={16} /> {error}</div>}
-        {!d ? <div className="loading"><LoaderCircle className="spin" /> Loading the platform…</div> : <>
+        {!d ? <div className="loading"><DotsLoader size={22} /> Loading the platform…</div> : <>
           <div className="kpis">
             <Kpi icon={Store} label="Shops" value={d.shops.length} sub={`${d.newShops} new this week`} />
             <Kpi icon={Users} label="Accounts" value={d.users.length} sub={`${d.verified} verified · ${d.users.length - d.verified} not yet`} />
@@ -250,10 +253,10 @@ function App() {
     if (!session) return;
     supabase.rpc('creator_check').then(({ data, error }) => setAllowed(!error && data === true));
   }, [session?.user?.id]);
-  if (session === undefined) return <div className="loading full"><LoaderCircle className="spin" /></div>;
+  if (session === undefined) return <AuthLoader label="Opening the console…" />;
   if (recovery && session) return <NewPassword onDone={() => { setRecovery(false); setNotice('Password saved.'); }} />;
   if (!session) return <SignIn notice={notice} />;
-  if (allowed === null) return <div className="loading full"><LoaderCircle className="spin" /> Checking access…</div>;
+  if (allowed === null) return <AuthLoader label="Checking access…" />;
   if (!allowed) return (
     <div className="auth-page"><div className="auth-card">
       <div className="brand"><img src="/favicon.png" alt="" /><div><strong>iPOS Creator</strong><small>Platform console</small></div></div>
@@ -265,4 +268,5 @@ function App() {
   return <Console session={session} />;
 }
 
+startButtonLoading();
 createRoot(document.getElementById('root')).render(<App />);
