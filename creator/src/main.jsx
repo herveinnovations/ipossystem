@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { DotsLoader, AuthLoader } from './Loading';
 import { startButtonLoading } from './button-loading';
-import { LogOut, RefreshCw, Store, Users, Activity, Bug, MessageSquare, Globe2, AlertCircle, ChevronDown, Check, Search, ShieldCheck, WifiOff } from 'lucide-react';
+import { LogOut, RefreshCw, Store, Users, Activity, Bug, MessageSquare, Globe2, AlertCircle, ChevronDown, Check, Search, ShieldCheck, WifiOff, CreditCard } from 'lucide-react';
 import { supabase } from './supabase';
 import { WorldMap, countryName } from './WorldMap';
 import { CREATOR_EMAIL, presenceStatus, ago, groupCrashes, visitsByDay, signupsByDay, places, flag } from './utils';
@@ -85,8 +85,9 @@ function useConsoleData(days) {
     if (!quiet) setState(s => ({ ...s, loading: true, error: '' }));
     try {
       const call = async (fn, args) => { const { data, error } = await supabase.rpc(fn, args); if (error) throw error; return data; };
-      const [overview, events, presence, feedback] = await Promise.all([call('creator_overview'), call('creator_events', { p_days: days }), call('creator_presence'), call('creator_feedback')]);
-      setState({ loading: false, error: '', data: { overview, events, presence, feedback }, at: new Date() });
+      const [overview, events, presence, feedback, billing] = await Promise.all([call('creator_overview'), call('creator_events', { p_days: days }), call('creator_presence'), call('creator_feedback'),
+        call('creator_billing').catch(() => null)]); // billing is optional until its database update is applied
+      setState({ loading: false, error: '', data: { overview, events, presence, feedback, billing }, at: new Date() });
     } catch (e) { setState(s => ({ ...s, loading: false, error: err(e) })); }
   }
   useEffect(() => { load(false); const t = setInterval(() => load(true), 30000); return () => clearInterval(t); }, [days]);
@@ -143,7 +144,7 @@ function Console({ session }) {
     <div className="app">
       <header className="top">
         <div className="brand"><img src="/favicon.png" alt="" /><div><strong>iPOS Creator</strong><small>{at ? `Updated ${ago(at.toISOString())} · refreshes every 30 s` : 'Loading…'}</small></div></div>
-        <nav className="jump">{[['live', 'Live'], ['map', 'Map'], ['crashes', 'Crashes'], ['shops', 'Shops'], ['users', 'Users & emails'], ['feedback', 'Feedback']].map(([id, l]) => <a key={id} href={'#' + id}>{l}</a>)}</nav>
+        <nav className="jump">{[['live', 'Live'], ['map', 'Map'], ['crashes', 'Crashes'], ['billing', 'Billing'], ['shops', 'Shops'], ['users', 'Users & emails'], ['feedback', 'Feedback']].map(([id, l]) => <a key={id} href={'#' + id}>{l}</a>)}</nav>
         <div className="top-right">
           <select aria-label="Period" value={days} onChange={e => setDays(Number(e.target.value))}>{PERIODS.map(([v, l]) => <option key={v} value={v}>Last {l}</option>)}</select>
           <button className="icon" aria-label="Refresh" onClick={reload}>{loading ? <DotsLoader size={17} tone="current" /> : <RefreshCw size={17} />}</button>
@@ -208,6 +209,8 @@ function Console({ session }) {
               </li>))}</ul> : <p className="muted pad">No crashes in this period. 🎉</p>}
           </Section>
 
+          <BillingSection billing={data?.billing} reload={reload} />
+
           <div className="filter"><Search size={16} /><input placeholder="Search shops, emails, cities…" value={q} onChange={e => setQ(e.target.value)} aria-label="Search" /></div>
 
           <Section id="shops" title="Shops" icon={Store} right={<small>{d.shops.length} registered</small>}>
@@ -237,6 +240,53 @@ function Console({ session }) {
         </>}
       </main>
     </div>
+  );
+}
+
+// ---------------------------------------------------------------- billing
+const K = n => 'K' + Number(n || 0).toLocaleString('en-ZM', { maximumFractionDigits: 0 });
+function planLabel(s) {
+  if (s.suspended) return ['On hold', 'bad'];
+  if (!s.ends_at) return ['No end date', 'good'];
+  const days = Math.ceil((new Date(s.ends_at) - Date.now()) / 86400000);
+  const paid = s.paid_until && (!s.trial_ends_at || s.paid_until >= s.trial_ends_at);
+  if (days > 0) return [`${paid ? 'Paid' : 'Trial'} · ${days} day${days === 1 ? '' : 's'} left`, days <= 7 ? 'warn' : 'good'];
+  return [s.can_sell ? `Ended · grace period` : `Ended ${-days} day${days === -1 ? '' : 's'} ago · selling paused`, 'bad'];
+}
+function BillingSection({ billing, reload }) {
+  const [busy, setBusy] = useState(''), [msg, setMsg] = useState(''), [months, setMonths] = useState({});
+  if (!billing) return <Section id="billing" title="Billing" icon={CreditCard}><p className="muted pad">Billing isn’t switched on yet — apply the billing database update first.</p></Section>;
+  const pending = billing.claims.filter(c => c.status === 'pending');
+  async function act(key, fn, args, done) {
+    setBusy(key); setMsg('');
+    const { error } = await supabase.rpc(fn, args);
+    setBusy(''); setMsg(error ? err(error) : done); if (!error) reload();
+  }
+  return (
+    <Section id="billing" title="Billing" icon={CreditCard} right={<small>{pending.length} payment{pending.length === 1 ? '' : 's'} to check</small>}>
+      {msg && <div className="note ok pad-x" role="status">{msg}</div>}
+      <h3 className="sub">Payments to check</h3>
+      {pending.length ? <ul className="claims">{pending.map(c => (
+        <li key={c.id}>
+          <div><strong>{c.shop}</strong> · {K(c.amount)} for {c.months === 12 ? '1 year' : `${c.months} month${c.months > 1 ? 's' : ''}`}
+            <small>{c.method} · ref <b>{c.reference}</b>{c.payer_phone ? ` · from ${c.payer_phone}` : ''} · {c.submitted_by} · {fmtDate(c.created_at)}</small></div>
+          <div className="fb-actions">
+            <button className="btn primary sm" disabled={!!busy} onClick={() => act(c.id, 'creator_review_claim', { p_id: c.id, p_approve: true, p_note: 'Payment confirmed' }, `Confirmed — ${c.shop} extended by ${c.months} month(s).`)}>Confirm payment</button>
+            <button className="btn" disabled={!!busy} onClick={() => act(c.id, 'creator_review_claim', { p_id: c.id, p_approve: false, p_note: 'We could not find this payment. Please check the reference or WhatsApp us.' }, 'Marked as not found.')}>Not found</button>
+          </div>
+        </li>))}</ul> : <p className="muted pad">Nothing waiting. Check your MTN/Airtel/bank statement against references here before confirming.</p>}
+      <h3 className="sub">Shops</h3>
+      <div className="table"><table><thead><tr><th>Shop</th><th>Owner</th><th>Plan</th><th>Ends</th><th>Branches</th><th>Actions</th></tr></thead>
+        <tbody>{billing.shops.map(s => { const [label, tone] = planLabel(s); const n = months[s.company_id] || 1; return (
+          <tr key={s.company_id}><td><strong>{s.name}</strong>{s.note && <small className="muted"> · {s.note}</small>}</td><td>{s.owner_email || '—'}</td>
+            <td><span className={'badge ' + tone}>{label}</span></td><td>{s.ends_at ? fmtDate(s.ends_at) : '—'}</td><td>{s.branches || 1}</td>
+            <td className="plan-actions">
+              <select aria-label="Months" value={n} onChange={e => setMonths({ ...months, [s.company_id]: Number(e.target.value) })}>{[1, 3, 6, 12].map(x => <option key={x} value={x}>{x === 12 ? '1 year' : `${x} mo`}</option>)}</select>
+              <button className="btn sm" disabled={!!busy} onClick={() => act(s.company_id + 'x', 'creator_set_plan', { p_company_id: s.company_id, p_action: 'extend', p_months: n, p_days: null, p_note: null }, `${s.name} extended by ${n} month(s).`)}>Add paid time</button>
+              <button className="btn sm" disabled={!!busy} onClick={() => act(s.company_id + 't', 'creator_set_plan', { p_company_id: s.company_id, p_action: 'trial', p_months: null, p_days: 14, p_note: null }, `${s.name}: trial extended by 14 days.`)}>+14 trial days</button>
+              <button className="btn sm link" disabled={!!busy} onClick={() => act(s.company_id + 's', 'creator_set_plan', { p_company_id: s.company_id, p_action: s.suspended ? 'resume' : 'suspend', p_months: null, p_days: null, p_note: null }, s.suspended ? `${s.name} resumed.` : `${s.name} put on hold.`)}>{s.suspended ? 'Resume' : 'Put on hold'}</button>
+            </td></tr>); })}</tbody></table></div>
+    </Section>
   );
 }
 
