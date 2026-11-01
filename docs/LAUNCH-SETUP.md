@@ -30,8 +30,8 @@ Protection Commissioner.
 
 Run `supabase/billing.sql` once. It:
 - creates the plan and payment tables (row-level security on, no direct access),
-- gives **every existing shop a 30-day launch trial from the day you run it**,
-- gives every new shop a 30-day trial automatically,
+- gives **every existing shop a 14-day launch trial from the day you run it**,
+- gives every new shop a 14-day trial automatically,
 - refuses new sales 3 days after a trial or paid period ends (offline sales made before then still sync).
 
 To test it on a copy first: `supabase/tests/billing-test.sql` (instructions at the top of

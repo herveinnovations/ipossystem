@@ -18,7 +18,7 @@ create function pg_temp.as_user(uid text) returns void language plpgsql as $$ be
   perform set_config('role','authenticated', true); end $$;
 create function pg_temp.try(q text) returns text language plpgsql as $$ declare r text; begin execute q into r; return coalesce(r,'ok'); exception when others then return 'ERR: '||left(sqlerrm,70); end $$;
 
-select '1 trial row created: '||(trial_ends_at between now()+interval '29 days' and now()+interval '31 days') from public.subscriptions where company_id='00000000-0000-0000-0000-00000000aaaa';
+select '1 trial row created: '||(trial_ends_at between now()+interval '13 days' and now()+interval '15 days') from public.subscriptions where company_id='00000000-0000-0000-0000-00000000aaaa';
 select '2 sale during trial: '||pg_temp.sale(now());
 
 begin;

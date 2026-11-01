@@ -1,5 +1,5 @@
 -- Plans, free trial and payment (MVP).
--- * Every shop gets a free trial; existing shops get 30 days from when this runs.
+-- * Every shop gets a free trial; existing shops get 14 days from when this runs.
 -- * Owners pay by mobile money or bank, then submit the reference in iPOS (Billing page).
 -- * The creator approves the payment in the Creator console, which extends "paid until".
 -- * When the trial/plan has ended (plus 3 days' grace), new sales are refused by the
@@ -62,11 +62,11 @@ language sql stable security definer set search_path = '' as $$
   from (select cid as c) x left join public.subscriptions s on s.company_id = x.c
 $$;
 
--- New shops start a 30-day free trial.
+-- New shops start a 14-day free trial.
 create function private.start_trial() returns trigger
 language plpgsql security definer set search_path = '' as $$
 begin
-  insert into public.subscriptions(company_id, trial_ends_at) values (new.id, now() + interval '30 days')
+  insert into public.subscriptions(company_id, trial_ends_at) values (new.id, now() + interval '14 days')
   on conflict (company_id) do nothing;
   return new;
 end $$;
@@ -86,9 +86,9 @@ end $$;
 create trigger sales_plan_guard before insert on public.sales
 for each row execute function private.guard_sale_plan();
 
--- Existing shops: 30-day launch trial from today.
+-- Existing shops: 14-day launch trial from today.
 insert into public.subscriptions(company_id, trial_ends_at)
-select c.id, now() + interval '30 days' from public.companies c
+select c.id, now() + interval '14 days' from public.companies c
 on conflict (company_id) do nothing;
 
 -- ------------------------------------------------------------- shop side

@@ -102,6 +102,7 @@ export default function Billing({ auth, subscription }) {
           </div>
           {hasPay ? (
             <div className="pay-options">
+              {pay.sample && <p className="sample-flag">Sample details — set your real MTN, Airtel and bank details before launch.</p>}
               {pay.mtn.number && <div className="pay-box"><h3><Smartphone size={17} /> MTN Money</h3><CopyLine label="Number" value={pay.mtn.number} /><CopyLine label="Name" value={pay.mtn.name} /></div>}
               {pay.airtel.number && <div className="pay-box"><h3><Smartphone size={17} /> Airtel Money</h3><CopyLine label="Number" value={pay.airtel.number} /><CopyLine label="Name" value={pay.airtel.name} /></div>}
               {pay.bank.account && <div className="pay-box"><h3><Landmark size={17} /> Bank transfer</h3><CopyLine label="Bank" value={pay.bank.bank} /><CopyLine label="Account" value={pay.bank.account} /><CopyLine label="Name" value={pay.bank.name} /><CopyLine label="Branch" value={pay.bank.branch} /></div>}

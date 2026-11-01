@@ -595,3 +595,4 @@ label.has-scan input{padding-right:48px}
 @media(max-width:900px){.billing-grid{grid-template-columns:1fr}.plan-card{flex-direction:column;align-items:flex-start}.plan-card-side{text-align:left}.price-table{grid-template-columns:repeat(2,1fr)}.import-summary{grid-template-columns:repeat(2,1fr)}.plan-banner{padding:10px 16px;flex-wrap:wrap}}
 .management-panel .pay-form{border:0;padding:0;background:none;box-shadow:none}
 .import-table td,.import-table th{padding:9px 12px;text-align:left;vertical-align:top}.import-table td.num,.import-table th.num{text-align:right}.import-table td .badge{margin-bottom:2px}
+.sample-flag{grid-column:1/-1;margin:0;padding:8px 12px;border:1px dashed #c58a2c;border-radius:8px;background:#fdf6e8;color:#8a5a12;font-size:12px;font-weight:600}
