@@ -3,7 +3,7 @@
 // cached here; the app keeps its own offline copies and sales queue.
 const SHELL = 'ipos-shell-v1';
 const ASSETS = 'ipos-assets-v1';
-const CORE = ['/', '/index.html', '/manifest.webmanifest', '/ipos-logo.png', '/icon-192.png', '/icon-512.png', '/apple-touch-icon.png'];
+const CORE = ['/', '/index.html', '/manifest.webmanifest', '/ipos-logo.png', '/splash-logo.png', '/icon-192.png', '/icon-512.png', '/apple-touch-icon.png'];
 // Filled in at build time with every file of this release (see vite.config.js).
 // The list changes with each release, so phones detect and install updates.
 const BUILD_ASSETS = self.__BUILD_ASSETS__ || [];
