@@ -77,7 +77,7 @@ function BranchesContent({ auth }) {
         </div>
       </div>
       <ErrorBox text={error} />
-      {!rows ? <div className="insights-loading"><DotsLoader size={18} /> Loading branches…</div> : (
+      {!rows ? <Skeleton kind="branches" rows={2} label="Loading branches…" /> : (
         <>
           {rows.length > 1 && (
             <div className="stat-grid branch-stats">
@@ -179,7 +179,7 @@ function StaffBranches({ auth }) {
     <section className="table-panel staff-branches">
       <div className="table-toolbar"><h2><Users size={18} /> Who works where</h2></div>
       <ErrorBox text={error} />
-      {!staff ? <div className="insights-loading"><DotsLoader size={18} /> Loading staff…</div> : (
+      {!staff ? <Skeleton kind="rows" rows={4} label="Loading staff…" /> : (
         <div className="table-scroll">
           <table className="customer-table">
             <thead><tr><th>Name</th><th>Role</th><th>Branch</th></tr></thead>
@@ -246,7 +246,7 @@ function TransfersContent({ auth }) {
         <button role="tab" aria-selected={tab === 'transit'} className={tab === 'transit' ? 'active' : ''} onClick={() => setTab('transit')}>In transit{list ? ` (${list.filter(t => t.status === 'sent').length})` : ''}</button>
         <button role="tab" aria-selected={tab === 'done'} className={tab === 'done' ? 'active' : ''} onClick={() => setTab('done')}>History</button>
       </div>
-      {!list ? <div className="insights-loading"><DotsLoader size={18} /> Loading transfers…</div> : !shown.length ? (
+      {!list ? <Skeleton kind="table" rows={4} label="Loading transfers…" /> : !shown.length ? (
         <div className="empty"><Truck size={33} /><h3>{tab === 'transit' ? 'Nothing in transit' : 'No transfers yet'}</h3><p>{tab === 'transit' ? 'Stock you send to another branch shows here until it is received.' : 'Received and cancelled transfers show here.'}</p></div>
       ) : (
         <div className="transfer-list">

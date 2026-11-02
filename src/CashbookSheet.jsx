@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Download, RefreshCw, FileSpreadsheet, Undo2, Search, Plus, Wallet, ArrowDownLeft, ArrowUpRight, Scale, AlertCircle } from 'lucide-react';
 import { supabase } from './supabase';
 import { toast } from './Toast';
-import { Skeleton } from './Loading';
+import {Skeleton} from './Loading';
 import { list, rpc, unwrap, today, monthStart, downloadCSV, cashbookLedger } from './operations';
 import { cashbookPeriod } from './operation-utils';
 import { paymentMethods } from './totals';
@@ -117,7 +117,7 @@ export default function CashbookSheet({ auth }) {
         <div className="search-box"><Search size={16} /><input placeholder="Search description, category…" value={q} onChange={e => setQ(e.target.value)} aria-label="Search cashbook" /></div>
         <label className="check"><input type="checkbox" checked={daily} onChange={e => setDaily(e.target.checked)} /> Daily totals</label>
       </div>
-      {loading && !data ? <Skeleton label="Loading cashbook…" /> : data && <>
+      {loading && !data ? <Skeleton kind="stats" stats={4} rows={7} toolbar={false} label="Loading cashbook…" /> : data && <>
         <div className="stat-grid operation-stats cash-stats">
           {[['Opening balance', sheet.openingBalance, Wallet, sheet.hasOpening ? nice(range.from) : 'Not set'], ['Money in', sheet.totalIn, ArrowDownLeft, `${visible.filter(r => r.in).length} entries`], ['Money out', sheet.totalOut, ArrowUpRight, `${visible.filter(r => r.out).length} entries`], ['Closing balance', sheet.closingBalance, Scale, nice(range.to)]].map(([l, v, Icon, note]) => (
             <div className="stat-card" key={l}><div>{l}<Icon size={18} /></div><strong>{v === null ? '—' : money(v, c)}</strong><small>{note}</small></div>

@@ -1,5 +1,5 @@
 import { t as tr } from './i18n';
-import { DotsLoader } from './Loading';
+import {DotsLoader, Skeleton} from './Loading';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Plus, X, RefreshCw, AlertCircle, Users, Wallet, Phone, Pencil, Receipt, Megaphone, Download } from 'lucide-react';
@@ -139,7 +139,7 @@ function CustomerDetail({ auth, customerId, onClose, onChanged }) {
           </div>
         </div>
         <ErrorBox text={error} />
-        {!c ? (!error && <div className="insights-loading"><DotsLoader size={18} /> Loading customer…</div>) : (
+        {!c ? (!error && <Skeleton kind="detail" rows={3} label="Loading customer…" />) : (
           <>
             <div className="customer-summary">
               <div className={'owed-card' + (Number(c.balance) > 0 ? ' owing' : '')}>
@@ -244,7 +244,7 @@ export function Customers({ auth }) {
             <button className="icon-button" aria-label="Refresh customers" onClick={customers.reload}><RefreshCw size={18} /></button>
           </div>
         </div>
-        {customers.loading ? <div className="insights-loading"><DotsLoader size={18} /> Loading customers…</div> : list.length ? (
+        {customers.loading ? <Skeleton kind="rows" rows={5} label="Loading customers…" /> : list.length ? (
           <div className="table-scroll">
             <table className="customer-table">
               <thead><tr><th>Name</th><th>Phone</th><th>Owes</th><th>Credit limit</th><th>Offers</th><th></th></tr></thead>

@@ -14,7 +14,7 @@ import {withBranchStock,ALL,branchName} from './branches';
 const money=(n,c='ZMW')=>new Intl.NumberFormat('en-ZM',{style:'currency',currency:c}).format(Number(n||0));
 const msg=e=>e.message||'Something went wrong. Try again.';
 function ErrorBox({error}){return error&&<div className="notice" role="alert"><AlertCircle size={18}/>{error}</div>}
-function Loading(){return <Skeleton label="Loading store data…"/>}
+function Loading(){return <Skeleton kind="table" toolbar={false} label="Loading store data…"/>}
 function Empty({title,text}){return <div className="empty"><FileText size={33}/><h3>{title}</h3><p>{text}</p></div>}
 function Heading({title,text,children}){return <div className="page-heading"><div><span className="eyebrow">STORE OPERATIONS</span><h1>{title}</h1><p>{text}</p></div><div className="heading-actions">{children}</div></div>}
 function Modal({title,onClose,children,busy=false}){return <div className="modal-backdrop"><section className="modal operation-modal"><div className="modal-head"><h2>{title}</h2><button aria-label="Close dialog" disabled={busy} onClick={onClose}><X/></button></div>{children}</section></div>}

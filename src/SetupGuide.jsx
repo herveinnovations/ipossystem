@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DotsLoader } from './Loading';
+import {DotsLoader,Skeleton} from './Loading';
 import { Link } from 'react-router-dom';
 import { Check, ChevronDown, ArrowRight, X, Sparkles, Download } from 'lucide-react';
 import { supabase } from './supabase';
@@ -93,7 +93,7 @@ export function SetupGuide({ auth, place = 'dashboard' }) {
   const [open, setOpen] = useState(null);
   const dashboard = place === 'dashboard';
   if (dashboard && (auth.membership.role === 'cashier' || g.prefs.hidden || !g.facts || g.complete)) return null;
-  if (!dashboard && !g.facts) return <section className="management-panel setup-guide"><div className="insights-loading"><DotsLoader size={18} /> Checking your setup…</div></section>;
+  if (!dashboard && !g.facts) return <Skeleton kind="checklist" rows={8} label="Checking your setup…" />;
   const expanded = open ?? g.next?.id;
   const fresh = g.finished === 0;
   return (

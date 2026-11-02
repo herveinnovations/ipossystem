@@ -3,7 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { ShieldAlert, RefreshCw, AlertCircle, Check, Search, RotateCcw, ChevronDown } from 'lucide-react';
 import { supabase } from './supabase';
 import { toast } from './Toast';
-import { Skeleton } from './Loading';
+import {Skeleton} from './Loading';
 import { ALL, branchName } from './branches';
 import { computeFlags, summarize, RULES, GROUPED } from './flag-utils';
 
@@ -134,7 +134,7 @@ function FlagsContent({ auth }) {
         </div>
       </div>
       {error && <div className="notice" role="alert"><AlertCircle size={18} /><span>{error}</span></div>}
-      {loading && !data ? <Skeleton kind="dashboard" rows={4} label="Checking sales, refunds, shifts and stock…" /> : data && (
+      {loading && !data ? <Skeleton kind="stats" stats={4} tabs={3} rows={4} toolbar={false} label="Checking sales, refunds, shifts and stock…" /> : data && (
         <>
           <div className="stat-grid branch-stats">
             <div className={'stat-card' + (s.open.length ? ' warn' : '')}><div>To check<ShieldAlert size={19} /></div><strong>{s.open.length}</strong><small>{s.high ? `${s.high} serious` : 'Nothing serious'}</small></div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { DotsLoader } from './Loading';
+import {DotsLoader, Skeleton} from './Loading';
 import { Link, Navigate } from 'react-router-dom';
 import { PackageX, RefreshCw, AlertCircle, ShoppingBag, MessageCircle, CheckCircle2, Truck } from 'lucide-react';
 import * as api from './api';
@@ -131,7 +131,7 @@ function ReorderContent({ auth }) {
         </div>
       ))}
 
-      {loading && !data ? <div className="insights-loading"><DotsLoader size={18} /> Checking your stock and recent sales…</div> : !rows.length ? (
+      {loading && !data ? <Skeleton kind="reorder" rows={4} label="Checking your stock and recent sales…" /> : !rows.length ? (
         <div className="empty"><CheckCircle2 size={33} /><h3>Nothing to reorder</h3><p>Every product is above its low-stock level and has more than a week of stock at current sales.</p></div>
       ) : (
         <>

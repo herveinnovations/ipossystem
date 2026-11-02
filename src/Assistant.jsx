@@ -3,7 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { Sparkles, Send, RefreshCw, AlertCircle, ArrowRight, X } from 'lucide-react';
 import { supabase } from './supabase';
 import * as api from './api';
-import { Skeleton } from './Loading';
+import {Skeleton} from './Loading';
 import { ALL, branchName } from './branches';
 import { lusakaDay, addDays, dailyBrief, availableQuestions, matchQuestion, answer } from './assistant-utils';
 
@@ -129,7 +129,7 @@ function AssistantContent({ auth }) {
         <div className="heading-actions"><button className="icon-button" aria-label="Refresh" onClick={reload}><RefreshCw size={18} /></button></div>
       </div>
       {error && <div className="notice" role="alert"><AlertCircle size={18} /><span>{error}</span></div>}
-      {!ctx ? (loading && <Skeleton kind="list" rows={5} label="Reading your sales and stock…" />) : (
+      {!ctx ? (loading && <Skeleton kind="assistant" label="Reading your sales and stock…" />) : (
         <>
           <section className="assist-brief large">
             <div className="assist-brief-head"><h2><Sparkles size={19} /> {dailyBrief(ctx).title}</h2></div>

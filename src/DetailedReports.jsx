@@ -171,7 +171,7 @@ export default function DetailedReports({ auth }) {
         </div>
       </div>
       {error && <div className="notice" role="alert"><AlertCircle size={18} />{error}</div>}
-      {loading ? <Skeleton kind="dashboard" label="Loading reports…" /> : model && <>
+      {loading ? <Skeleton kind="report" label="Loading reports…" /> : model && <>
         <div className="stat-grid">{[["Today's Sales", model.today, 'Today · Zambia time'], ['Annual Sales', model.annual, 'Year to date'], ['Inventory Valuation', model.inventory, 'Current stock × selling price'], ['Outstanding Supplier Payments', model.debt, 'Received orders · unpaid']].map(([label, value, note]) => <div className="stat-card" key={label}><div>{label}<BarChart3 size={18} /></div><strong>{fmt(value)}</strong><small>{note}</small></div>)}</div>
         <div className="operation-tabs analytics-tabs" role="tablist" aria-label="Report sections">{tabs.map(t => <button role="tab" aria-selected={tab === t} className={tab === t ? 'active' : ''} key={t} onClick={() => setTab(t)}>{t}</button>)}</div>
         <div className="report-controls">
@@ -197,7 +197,7 @@ export default function DetailedReports({ auth }) {
         ) : tab === tabs[5] ? (
           <section className="management-panel financial-statement">
             <div className="statement-title"><h2>Balance sheet</h2><span className="badge amber">{bsLabels.current}</span></div>
-            {!bs ? <Skeleton kind="list" rows={6} label="Working out balances…" /> : <>
+            {!bs ? <Skeleton kind="statement" rows={9} label="Working out balances…" /> : <>
               <StatementTable rows={bs} fmt={fmt} current={bsLabels.current} previous={bsLabels.previous} />
               {bsNow.equity !== null
                 ? <div className="success-note">Check: total assets ({fmt(bsNow.totalAssets)}) = liabilities ({fmt(bsNow.totalLiabilities)}) + owner's equity ({fmt(bsNow.equity)}).</div>
