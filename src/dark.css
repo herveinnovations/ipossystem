@@ -550,6 +550,8 @@
 :root[data-theme="dark"] .update-notice .primary{background:#e09a4c;color:#1f2a1f}
 :root[data-theme="dark"] .update-notice .primary:hover{background:#684b2a}
 :root[data-theme="dark"] .update-later{color:#c4d8ce}
+:root[data-theme="dark"] .back-home{color:#9cdfc6}
+:root[data-theme="dark"] .back-home:hover{background:#1c251e}
 :root[data-theme="dark"] .bar-prev,:root[data-theme="dark"] .lg-prev{fill:#2b3832;background:#2b3832}
 :root[data-theme="dark"] .hbar{fill:#3d7a5f}:root[data-theme="dark"] .hbar-now{fill:#5fcf9c}
 :root[data-theme="dark"] .donut-track{stroke:#26312c}:root[data-theme="dark"] .spark-area{fill:#5fcf9c1f}:root[data-theme="dark"] .spark-line{stroke:#5fcf9c}:root[data-theme="dark"] .spark-dot{fill:#5fcf9c}
