@@ -3,7 +3,7 @@
 .lp-wrap{width:min(1180px,100%);margin:0 auto;padding:0 24px}.lp-narrow{width:min(820px,100%)}
 .lp-nav{position:sticky;top:0;z-index:30;background:#ffffffeb;backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .lp-nav-row{display:flex;align-items:center;justify-content:space-between;height:70px;gap:20px}
-.lp-brand{display:flex;align-items:center;gap:10px;font-weight:750;font-size:28px;letter-spacing:-1px;color:#163e2c}.lp-brand img{width:36px;height:36px;border-radius:10px}.lp-brand.small{font-size:19px}.lp-brand.small img{width:28px;height:28px;border-radius:8px}
+.lp-brand{display:flex;align-items:center;gap:10px;font-weight:750;font-size:28px;letter-spacing:-1px;color:#163e2c}.lp-brand img{width:38px;height:38px;border-radius:0;display:block}.lp-brand.small{font-size:19px}.lp-brand.small img{width:28px;height:28px;border-radius:8px}
 .lp-links{display:flex;align-items:center;gap:26px;font-size:15px;font-weight:550;color:#3b4d43}.lp-links a:hover{color:var(--g2)}.lp-signin{color:var(--g2)!important;font-weight:650}
 .lp-burger{display:none;background:none;border:0;color:var(--ink);padding:6px;cursor:pointer}
 .lp-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:10px;padding:15px 22px;font-weight:650;font-size:16px;border:1px solid transparent;white-space:nowrap;transition:transform .12s,background .12s}

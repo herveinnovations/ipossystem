@@ -42,7 +42,7 @@ export default function Landing({ auth }) {
     <div className="lp">
       <header className="lp-nav">
         <div className="lp-wrap lp-nav-row">
-          <Link to="/" className="lp-brand" aria-label="iPOS home"><img src="/ipos-logo.png" alt="" /><span>iPOS</span></Link>
+          <Link to="/" className="lp-brand" aria-label="iPOS home"><img src="/ipos-logo.png?v=23670b6cd135" alt="" /><span>iPOS</span></Link>
           <nav className={'lp-links' + (menu ? ' open' : '')} onClick={() => setMenu(false)}>
             <a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">Questions</a>
             {wa && <a href={wa} target="_blank" rel="noreferrer">Contact</a>}
@@ -139,7 +139,7 @@ export default function Landing({ auth }) {
 
       <footer className="lp-foot">
         <div className="lp-wrap lp-foot-row">
-          <div className="lp-brand small"><img src="/ipos-logo.png" alt="" /><span>iPOS</span></div>
+          <div className="lp-brand small"><img src="/ipos-logo.png?v=23670b6cd135" alt="" /><span>iPOS</span></div>
           <nav><Link to="/terms">Terms of Service</Link><Link to="/privacy">Privacy Policy</Link><Link to="/login">Sign in</Link>{SITE.supportEmail && <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>}</nav>
           <small>© {new Date().getFullYear()} {SITE.legalName || 'iPOS'} · Lusaka, Zambia</small>
         </div>

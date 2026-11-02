@@ -12,7 +12,7 @@ function Shell({ title, children }) {
   return (
     <div className="lp lp-legal">
       <header className="lp-nav"><div className="lp-wrap lp-nav-row">
-        <Link to="/" className="lp-brand" aria-label="iPOS home"><img src="/ipos-logo.png" alt="" /><span>iPOS</span></Link>
+        <Link to="/" className="lp-brand" aria-label="iPOS home"><img src="/ipos-logo.png?v=23670b6cd135" alt="" /><span>iPOS</span></Link>
         <nav className="lp-legal-links"><Link to="/terms">Terms</Link><Link to="/privacy">Privacy</Link><Link to="/login" className="lp-signin">Sign in</Link></nav>
       </div></header>
       <main className="lp-wrap lp-narrow lp-doc">
