@@ -238,4 +238,4 @@
   .in-tabs button{font-size:13px;flex-direction:column;gap:2px}
   .in-computer{grid-template-columns:1fr;justify-items:center;text-align:center}
 }
-.lp-qr-x svg{display:block;width:14px;height:14px;flex-shrink:0}
+.lp-qr-x{z-index:2}.lp-qr-x svg{display:block;width:14px;height:14px;flex-shrink:0}
