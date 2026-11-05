@@ -163,6 +163,25 @@ export default function Landing({ auth }) {
           </div>
         </section>
 
+        <section className="lp-pay lp-queue">
+          <div className="lp-wrap lp-pay-grid">
+            <div>
+              <span className="lp-eyebrow dark">Busy days made easy</span>
+              <h2 className="lp-h2 left">Shorter queues at the till</h2>
+              <ul className="lp-checks">
+                <li><Check size={18} /> <span><b>Scan or search</b> and the item is on the bill in a second</span></li>
+                <li><Check size={18} /> <span><b>Several tills at once</b>, each cashier on their own phone or computer</span></li>
+                <li><Check size={18} /> <span><b>Receipts by WhatsApp</b> or printed, so customers are on their way fast</span></li>
+              </ul>
+              <Link className="lp-btn lp-primary" to="/signup">Start your {p.trialDays}-day free trial <ArrowRight size={18} /></Link>
+            </div>
+            <figure className="lp-queue-art">
+              <img src="/landing/queue-illustration.webp" alt="Customers with shopping bags queue at a shop counter while the cashier serves them" width="1200" height="770" loading="lazy" />
+              <figcaption>Illustration: Freepik</figcaption>
+            </figure>
+          </div>
+        </section>
+
         <section className="lp-types">
           <div className="lp-wrap">
             <h2 className="lp-h2">Made for every kind of shop</h2>
