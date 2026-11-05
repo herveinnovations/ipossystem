@@ -150,19 +150,29 @@
   .lp-band h2{font-size:32px}.lp-faq-sec{padding:60px 0}
 }
 
-/* Type sizes matched to eoroboticslab.com (read from their page); fonts, colours and layout unchanged */
+/* Type sizes matched to eoroboticslab.com (measured on their page at computer and phone width);
+   fonts, colours and layout unchanged */
 .lp{font-size:17px;line-height:1.6}
-.lp-hero h1{font-size:34px;font-weight:600;line-height:1.1;letter-spacing:-1px}
-.lp-h2,.lp-pay .lp-h2{font-size:32px;font-weight:700;line-height:1.1;letter-spacing:-.96px}
+.lp-hero h1{font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-1.92px}
+.lp-h2,.lp-pay .lp-h2{font-size:48px;font-weight:700;line-height:1.1;letter-spacing:-1.44px}
 .lp-box-text h2{font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-1.08px}
-.lp-band h2,.lp-quote{font-size:28px;font-weight:600;line-height:1.1;letter-spacing:-.84px}
-.lp-calc h3,.lp-type h3{font-size:28px;font-weight:600;line-height:1.1;letter-spacing:-.84px}
-.lp-pill h3,.lp-steps h3{font-size:19px;font-weight:600;line-height:1.2;letter-spacing:-.5px}
-.lp-hero-text>p,.lp-box-text p,.lp-band p{font-size:19px;line-height:1.5;letter-spacing:-.19px}
-.lp-pill p,.lp-type p,.lp-steps p,.lp-row,.lp-calc label,.lp-foot p,.lp-copy{font-size:14px;line-height:1.5}
-.lp-eyebrow{font-size:12px;font-weight:600;letter-spacing:.5px}
-.lp-links,.lp-checks,.lp-q button,.lp-foot a,.lp-btn,.lp-toggle button{font-size:17px}
-.lp-links a{font-weight:500}
-.lp-small{font-size:14px}
-.lp-tags span,.lp-calc small{font-size:14px}
-.lp-foot h4{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.lp-band h2,.lp-quote,.lp-calc h3,.lp-type h3{font-size:40px;font-weight:600;line-height:1.1;letter-spacing:-1.2px}
+.lp-pill h3,.lp-steps h3{font-size:32px;font-weight:600;line-height:1.2;letter-spacing:-.5px}
+.lp-hero-text>p{font-size:21px;line-height:1.5;letter-spacing:-.21px}
+.lp-box-text p,.lp-band p,.lp-pill p,.lp-type p,.lp-steps p,.lp-checks{font-size:19px;line-height:1.6;letter-spacing:-.19px}
+.lp-row,.lp-calc label,.lp-foot p,.lp-copy,.lp-tags span,.lp-calc small,.lp-small{font-size:14px;line-height:1.5}
+.lp-eyebrow{font-size:13px;font-weight:600;letter-spacing:.78px}
+.lp-links{font-size:14px}.lp-links a{font-weight:500}
+.lp-q button,.lp-foot a,.lp-btn,.lp-toggle button{font-size:17px}.lp-btn.lp-small{font-size:14px}
+.lp-foot h4{font-size:13px;font-weight:600;letter-spacing:.78px;text-transform:uppercase}
+@media(max-width:760px){
+  .lp-hero h1{font-size:34px;letter-spacing:-1px}
+  .lp-h2,.lp-pay .lp-h2{font-size:32px;letter-spacing:-.96px}
+  .lp-band h2,.lp-quote,.lp-calc h3,.lp-type h3{font-size:28px;letter-spacing:-.84px}
+  .lp-pill h3,.lp-steps h3{font-size:19px}
+  .lp-hero-text>p{font-size:19px;letter-spacing:-.19px}
+  .lp-pill p,.lp-type p,.lp-steps p{font-size:14px;line-height:1.5}
+  .lp-box-text p,.lp-band p,.lp-checks{font-size:17px}
+  .lp-eyebrow,.lp-foot h4{font-size:12px;letter-spacing:.5px}
+  .lp-links{font-size:17px}
+}
