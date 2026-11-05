@@ -176,3 +176,18 @@
   .lp-eyebrow,.lp-foot h4{font-size:12px;letter-spacing:.5px}
   .lp-links{font-size:17px}
 }
+
+/* No border lines anywhere on the front page; soft fills keep things readable */
+.lp *,.lp *:before,.lp *:after{border-color:transparent!important}
+.lp-nav{border-bottom:0;box-shadow:0 1px 0 #0000}
+.lp-outline{background:#ffffff1f}.lp-outline:hover{background:#ffffff2e}
+.lp-ghost{background:#eef4f0}
+.lp-tags span{border:0;background:#ffffff1a}
+.lp-stepper{border:0;background:#f2f6f3}.lp-stepper b{background:#fff;margin:4px 0;padding:6px 0;border-radius:8px}
+.lp-row.total{border-top:0;margin-top:10px;padding-top:10px;background:#fff;border-radius:8px;padding:10px 12px;margin-left:-12px;margin-right:-12px}
+.lp-faq,.lp-q{border:0}.lp-faq{display:grid;gap:10px}
+.lp-q{background:var(--soft);border-radius:14px;padding:0 22px}.lp-q p{margin-top:-8px}
+.lp-stats div{border:0;background:#ffffff12}
+.lp-copy{border-top:0}
+.lp-links a{border-bottom:0}
+@media(max-width:760px){.lp-links{border-bottom:0}}
