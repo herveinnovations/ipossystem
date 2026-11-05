@@ -25,20 +25,23 @@
 .lp-cta-row{display:flex;flex-wrap:wrap;gap:12px}
 
 /* hero */
-.lp-hero{background:var(--deep) var(--pattern);background-size:120px;color:#fff;overflow:hidden}
-.lp-hero-grid{display:grid;grid-template-columns:1.05fr .8fr .95fr;align-items:center;min-height:640px;position:relative;padding-top:64px;padding-bottom:64px}
-.lp-glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,#2f8a66 0%,transparent 65%);left:38%;top:12%;opacity:.55;pointer-events:none}
+.lp-hero{background:var(--deep) var(--pattern);background-size:120px;color:#fff;overflow:hidden;position:relative}
+.lp-hero-grid{display:grid;grid-template-columns:1.05fr .8fr .95fr;align-items:center;min-height:660px;padding-top:64px;padding-bottom:64px}
+.lp-hero-text{position:relative;z-index:2}
+.lp-hero-photo{position:absolute;top:0;right:0;bottom:0;width:68%;z-index:0}
+.lp-hero-photo img{width:100%;height:100%;object-fit:cover;object-position:22% 30%;display:block;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34%);mask-image:linear-gradient(90deg,transparent 0,#000 34%)}
+.lp-hero-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--deep) 0,#0f3a2e00 40%),linear-gradient(0deg,#0f3a2e99 0,#0f3a2e00 30%)}
+.lp-hero .lp-calc{grid-column:3}
 .lp-eyebrow{font-size:13px;font-weight:700;letter-spacing:2px;color:#9fd2b9;text-transform:uppercase}
 .lp-hero h1{font-size:clamp(40px,4.4vw,58px);line-height:1.08;letter-spacing:-2px;margin:18px 0}.lp-hero h1 em{font-style:normal;color:var(--gold)}
 .lp-hero-text>p{font-size:19px;color:#c8e3d6;margin:0 0 26px;max-width:470px}
 .lp-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}.lp-tags span{border:1px solid #ffffff33;border-radius:30px;padding:6px 14px;font-size:14px;color:#dff1e8}
-.lp-hero-phone{position:relative;z-index:1}
 .lp-phone{width:280px;border-radius:44px;background:#071d16;padding:12px;box-shadow:0 40px 80px #0008;margin:0 auto}
 .lp-phone img{width:100%;height:auto;display:block;border-radius:34px}
-.lp-hero-phone .lp-phone{transform:rotate(-6deg)}
+
 
 /* plan card */
-.lp-calc{background:#fff;color:var(--ink);border-radius:18px;padding:26px;box-shadow:0 30px 70px #0006;position:relative;z-index:2;margin-left:-60px;scroll-margin-top:100px}
+.lp-calc{background:#fff;color:var(--ink);border-radius:18px;padding:26px;box-shadow:0 30px 70px #0006;position:relative;z-index:2;scroll-margin-top:100px}
 .lp-calc h3{margin:0 0 16px;font-size:22px}
 .lp-calc label{display:block;font-size:14px;font-weight:700;margin:14px 0 8px;color:#33463c}
 .lp-stepper{display:flex;align-items:center;border:1px solid #dfe7e2;border-radius:10px;overflow:hidden}.lp-stepper b{flex:1;text-align:center;font-size:18px}
@@ -111,7 +114,7 @@
 
 /* tablets */
 @media(max-width:1100px){
-  .lp-hero-grid{grid-template-columns:1fr 1fr;gap:30px}.lp-hero-text{grid-column:1/-1}.lp-glow{left:0;top:40%}.lp-calc{margin-left:0}
+  .lp-hero-grid{grid-template-columns:1fr 1fr;gap:30px}.lp-hero .lp-calc{grid-column:2;max-width:400px;justify-self:end}.lp-hero-photo{width:80%}
   .lp-type h3{font-size:22px}.lp-big svg{width:64px;height:64px}
 }
 /* phones */
@@ -122,7 +125,9 @@
   .lp-wrap{padding:0 18px}
   .lp-hero-grid{grid-template-columns:1fr;padding-top:36px;padding-bottom:40px;min-height:0;gap:0}
   .lp-hero-text>p{font-size:17px}.lp-cta-row .lp-btn{width:100%}
-  .lp-phone{width:230px}.lp-hero-phone .lp-phone{margin-top:30px}.lp-calc{margin:-70px 0 0}
+  .lp-phone{width:230px}.lp-hero .lp-calc{grid-column:1;margin:-80px 0 0}
+  .lp-hero-photo{position:relative;width:auto;height:380px;margin:30px -18px 0}.lp-hero-photo img{object-position:30% 20%;-webkit-mask-image:none;mask-image:none}
+  .lp-hero-photo:after{background:linear-gradient(180deg,var(--deep) 0,#0f3a2e00 22%,#0f3a2e00 70%,var(--deep) 100%)}
   .lp-quote{font-size:21px;padding:34px 18px}
   .lp-grid3,.lp-foot-grid,.lp-band-grid{grid-template-columns:1fr}
   .lp-box{grid-template-columns:1fr}.lp-box-text{padding:34px 26px 10px;order:-1;z-index:2}.lp-box-text h2{font-size:34px}

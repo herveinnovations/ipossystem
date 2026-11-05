@@ -93,7 +93,6 @@ export default function Landing({ auth }) {
       <main>
         <section className="lp-hero">
           <div className="lp-wrap lp-hero-grid">
-            <div className="lp-glow" aria-hidden="true" />
             <div className="lp-hero-text">
               <span className="lp-eyebrow">Point of sale for Zambian shops</span>
               <h1>Sell faster.<br />Lose less.<br /><em>Know your profit.</em></h1>
@@ -104,7 +103,10 @@ export default function Landing({ auth }) {
               </div>
               <div className="lp-tags"><span>Works offline</span><span>Cash &amp; mobile money</span><span>English, Bemba, Nyanja</span></div>
             </div>
-            <div className="lp-hero-phone" aria-hidden="true"><div className="lp-phone"><img src="/landing/phone-pos.webp" alt="" width="540" height="1169" fetchpriority="high" /></div></div>
+            <picture className="lp-hero-photo">
+              <source media="(max-width: 760px)" srcSet="/landing/hero-shop-small.webp" />
+              <img src="/landing/hero-shop.webp" alt="A smiling customer at a shop counter while the cashier scans her items" width="1600" height="1267" fetchpriority="high" />
+            </picture>
             <PlanCard p={p} />
           </div>
         </section>
