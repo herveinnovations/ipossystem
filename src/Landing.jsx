@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Wordmark from './Wordmark';
 import { Link, Navigate } from 'react-router-dom';
-import { MessageCircle, ArrowRight, ChevronDown, Menu, X, Minus, Plus } from 'lucide-react';
+import { MessageCircle, ArrowRight, ChevronDown, Menu, X, Minus, Plus, Check } from 'lucide-react';
 import { SITE, whatsappLink, kwacha } from './site-config';
 import { planPrice } from './plan-utils';
 import { ICONS } from './landing-icons';
+import CheckoutIllustration from './CheckoutIllustration';
 import './landing.css';
 
 const Icon = ({ name }) => <span className="lp-svg" dangerouslySetInnerHTML={{ __html: ICONS[name] }} />;
@@ -118,6 +119,23 @@ export default function Landing({ auth }) {
             {PILLARS.map(([icon, title, text]) => (
               <article className="lp-pill" key={title}><span className="lp-i"><Icon name={icon} /></span><h3>{title}</h3><p>{text}</p><Link to="/signup">Try it free <ArrowRight size={16} /></Link></article>
             ))}
+          </div>
+        </section>
+
+        <section className="lp-pay">
+          <div className="lp-wrap lp-pay-grid">
+            <CheckoutIllustration />
+            <div>
+              <span className="lp-eyebrow dark">Every way your customers pay</span>
+              <h2 className="lp-h2 left">Cash, mobile money or card. One till.</h2>
+              <ul className="lp-checks">
+                <li><Check size={18} /> <span><b>Cash</b> with the change worked out for you</span></li>
+                <li><Check size={18} /> <span><b>MTN and Airtel money</b> recorded on every sale, so the day adds up</span></li>
+                <li><Check size={18} /> <span><b>Card</b> on your own card machine</span></li>
+                <li><Check size={18} /> <span><b>Credit for regulars</b>, so you always know who owes what</span></li>
+              </ul>
+              <Link className="lp-btn lp-primary" to="/signup">Start your {p.trialDays}-day free trial <ArrowRight size={18} /></Link>
+            </div>
           </div>
         </section>
 

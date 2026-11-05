@@ -75,6 +75,16 @@
 .lp-tag{position:absolute;left:14%;bottom:120px;transform:rotate(-6deg);background:var(--o);color:#1e1a10;font-weight:800;font-size:20px;padding:12px 22px;border-radius:12px;box-shadow:0 10px 24px #0004;z-index:2}
 .lp-box-text{position:relative;color:#fff;padding:40px 60px 40px 10px}.lp-box-text h2{font-size:46px;line-height:1.1;letter-spacing:-1.5px;margin:0 0 14px}.lp-box-text p{color:#d4ece1;font-size:18px;margin:0 0 24px}
 
+/* payments */
+.lp-pay{padding:80px 0 20px}
+.lp-pay-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.lp-illus{width:100%;height:auto;display:block}
+.lp-eyebrow.dark{color:var(--g2)}.lp-h2.left{text-align:left}
+.lp-pay .lp-h2{margin:12px 0 22px}
+.lp-checks{list-style:none;padding:0;margin:0 0 30px;display:grid;gap:14px;font-size:17px;color:#33463c}
+.lp-checks li{display:flex;gap:12px;align-items:flex-start}.lp-checks svg{flex-shrink:0;margin-top:3px;padding:3px;width:24px;height:24px;border-radius:50%;background:#e6f2eb;color:var(--g2)}
+.lp-checks b{color:var(--ink)}
+
 /* steps */
 .lp-steps{padding:70px 0;text-align:center;scroll-margin-top:60px}
 .lp-h2{font-size:clamp(30px,3.6vw,44px);line-height:1.15;letter-spacing:-1.5px;margin:0 0 50px;text-align:center}
@@ -129,7 +139,7 @@
   .lp-hero-photo{position:relative;width:auto;height:380px;margin:30px -18px 0}.lp-hero-photo img{object-position:30% 20%;-webkit-mask-image:none;mask-image:none}
   .lp-hero-photo:after{background:linear-gradient(180deg,var(--deep) 0,#0f3a2e00 22%,#0f3a2e00 70%,var(--deep) 100%)}
   .lp-quote{font-size:21px;padding:34px 18px}
-  .lp-grid3,.lp-foot-grid,.lp-band-grid{grid-template-columns:1fr}
+  .lp-grid3,.lp-foot-grid,.lp-band-grid,.lp-pay-grid{grid-template-columns:1fr}.lp-pay{padding:56px 0 10px}.lp-pay-grid{gap:24px}.lp-checks{font-size:16px}
   .lp-box{grid-template-columns:1fr}.lp-box-text{padding:34px 26px 10px;order:-1;z-index:2}.lp-box-text h2{font-size:34px}
   .lp-box-phone{height:330px;overflow:hidden;align-items:flex-start;padding-top:24px}.lp-box-phone .lp-phone{width:210px;transform:rotate(6deg)}.lp-tag{left:8%;bottom:90px}
   .lp-cwrap{width:240px}.lp-circle{width:240px;height:240px}
