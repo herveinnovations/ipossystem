@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Wordmark from './Wordmark';
 import { Link, Navigate } from 'react-router-dom';
-import { MessageCircle, ArrowRight, ChevronDown, Menu, X, Minus, Plus, Check } from 'lucide-react';
+import { MessageCircle, ArrowRight, ChevronDown, Menu, X, Minus, Plus, Check, Download } from 'lucide-react';
+import { isStandalone, readFlag, writeFlag } from './install';
 import { SITE, whatsappLink, kwacha } from './site-config';
 import { planPrice } from './plan-utils';
 import { ICONS } from './landing-icons';
@@ -72,6 +73,26 @@ function PlanCard({ p }) {
   );
 }
 
+function GetTheApp() {
+  const [hidden, setHidden] = useState(() => isStandalone() || readFlag('ipos.qrHidden') === '1');
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const check = () => setShown(window.scrollY > window.innerHeight * 0.45);
+    check(); window.addEventListener('scroll', check, { passive: true });
+    return () => window.removeEventListener('scroll', check);
+  }, []);
+  if (hidden) return null;
+  const close = () => { writeFlag('ipos.qrHidden', '1'); setHidden(true); };
+  return (<>
+    <aside className={'lp-qr' + (shown ? ' show' : '')} aria-label="Get the iPOS app">
+      <button className="lp-qr-x" aria-label="Hide" onClick={close}><X size={14} /></button>
+      <Link to="/install" className="lp-qr-code"><img src="/install-qr.svg" alt="QR code to install the iPOS app" width="120" height="120" /><img className="lp-qr-logo" src="/icon-192.png" alt="" width="30" height="30" /></Link>
+      <b>Scan to get the app</b><small>Android, iPhone and computer</small>
+    </aside>
+    <Link to="/install" className="lp-get-app"><Download size={17} /> Install the app</Link>
+  </>);
+}
+
 export default function Landing({ auth }) {
   const [menu, setMenu] = useState(false), [open, setOpen] = useState(0);
   if (auth?.session && auth?.membership && !auth?.loading) return <Navigate to="/dashboard" replace />;
@@ -84,6 +105,7 @@ export default function Landing({ auth }) {
           <Link to="/" className="lp-brand" aria-label="iPOS home"><img src="/ipos-logo.png?v=23670b6cd135" alt="" /><Wordmark /></Link>
           <nav className={'lp-links' + (menu ? ' open' : '')} onClick={() => setMenu(false)}>
             <a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">Questions</a>
+            <Link to="/install">Get the app</Link>
             <Link to="/login" className="lp-signin">Sign in</Link>
             <Link to="/signup" className="lp-btn lp-primary lp-small">Start free trial</Link>
           </nav>
@@ -230,6 +252,7 @@ export default function Landing({ auth }) {
           <div className="lp-copy"><span>© {new Date().getFullYear()} {SITE.legalName || 'iPOS'} · Lusaka, Zambia</span><span>Made for Zambian shops</span></div>
         </div>
       </footer>
+      <GetTheApp />
       {wa && <a className="lp-wa-float" href={wa} target="_blank" rel="noreferrer" aria-label="Chat with us on WhatsApp"><MessageCircle size={26} /></a>}
     </div>
   );

@@ -1,4 +1,5 @@
 import {LanguagePicker,useLanguage} from './LanguagePicker';
+import './install';
 import BackHome from './BackHome';
 import {t} from './i18n';
 import {Skeleton,AuthLoader,DotsLoader} from './Loading';
@@ -47,6 +48,7 @@ import {totals,validateCart,paymentMethods,paymentRows,CREDIT} from './totals';
 import Billing,{useSubscription,PlanBanner,PlanContext} from './Billing';
 import {planError} from './plan-utils';
 const Landing=lazy(()=>import('./Landing'));
+const InstallPage=lazy(()=>import('./InstallPage'));
 const Terms=lazy(()=>import('./Legal').then(x=>({default:x.Terms})));
 const Privacy=lazy(()=>import('./Legal').then(x=>({default:x.Privacy})));
 const ProductImport=lazy(()=>import('./ProductImport'));
@@ -105,7 +107,7 @@ function Unauthorized(){return <><Heading title="Access restricted" description=
 function taxRates(items){const r=[...new Set(items.map(i=>Number(i.tax_rate)).filter(Number.isFinite))];return r.length?r.join('%, ')+'%':'—'}
 function LandingRoute(){const auth=useContext(Auth);if(auth.loading&&configured&&storedSession())return <AuthLoader label="Opening your store…"/>;return <Landing auth={auth}/>}
 startButtonLoading();
-createRoot(document.getElementById('root'),{onUncaughtError:(e,i)=>{reportError(e,i?.componentStack);console.error(e)},onCaughtError:(e,i)=>{reportError(e,i?.componentStack);console.error(e)}}).render(<BrowserRouter><UpdateNotice/><Provider><Routes><Route path="/" element={<Suspense fallback={<AuthLoader label="Loading…"/>}><LandingRoute/></Suspense>}/><Route path="/terms" element={<Suspense fallback={<AuthLoader label="Loading…"/>}><Terms/></Suspense>}/><Route path="/privacy" element={<Suspense fallback={<AuthLoader label="Loading…"/>}><Privacy/></Suspense>}/><Route path="/login" element={<Login/>}/><Route path="/reset-password" element={<PasswordReset/>}/><Route path="/signup" element={<Signup/>}/><Route path="/account/email/verify" element={<EmailVerify/>}/><Route path="/account/register/success" element={<RegisterSuccessRoute/>}/><Route path="/*" element={<Protected/>}/></Routes><Toaster/></Provider></BrowserRouter>);
+createRoot(document.getElementById('root'),{onUncaughtError:(e,i)=>{reportError(e,i?.componentStack);console.error(e)},onCaughtError:(e,i)=>{reportError(e,i?.componentStack);console.error(e)}}).render(<BrowserRouter><UpdateNotice/><Provider><Routes><Route path="/" element={<Suspense fallback={<AuthLoader label="Loading…"/>}><LandingRoute/></Suspense>}/><Route path="/install" element={<Suspense fallback={<AuthLoader label="Loading…"/>}><InstallPage/></Suspense>}/><Route path="/terms" element={<Suspense fallback={<AuthLoader label="Loading…"/>}><Terms/></Suspense>}/><Route path="/privacy" element={<Suspense fallback={<AuthLoader label="Loading…"/>}><Privacy/></Suspense>}/><Route path="/login" element={<Login/>}/><Route path="/reset-password" element={<PasswordReset/>}/><Route path="/signup" element={<Signup/>}/><Route path="/account/email/verify" element={<EmailVerify/>}/><Route path="/account/register/success" element={<RegisterSuccessRoute/>}/><Route path="/*" element={<Protected/>}/></Routes><Toaster/></Provider></BrowserRouter>);
 // Opening screen: let the logo pop-in finish (about 2.4s from page start), then fade it out.
 {const el=document.getElementById('ipos-splash');if(el){const wait=Math.max(0,2400-performance.now());setTimeout(()=>requestAnimationFrame(()=>{el.classList.add('hide');setTimeout(()=>el.remove(),750)}),wait)}}
 // Offline app shell: lets iPOS open and keep selling without internet.

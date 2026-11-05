@@ -5,17 +5,8 @@ import { Check, ChevronDown, ArrowRight, X, Sparkles, Download } from 'lucide-re
 import { supabase } from './supabase';
 import { buildSteps, progress } from './setup-utils';
 
-// ---- app install (the browser offers this once; keep it for the install step)
-let installEvent = null;
-const installListeners = new Set();
-const readFlag = key => { try { return localStorage.getItem(key); } catch { return null; } };
-const writeFlag = (key, value) => { try { value == null ? localStorage.removeItem(key) : localStorage.setItem(key, value); } catch { /* storage unavailable */ } };
-if (typeof window !== 'undefined') {
-  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvent = e; installListeners.forEach(f => f()); });
-  window.addEventListener('appinstalled', () => { installEvent = null; writeFlag('ipos.installed', '1'); installListeners.forEach(f => f()); });
-}
-const isInstalled = () => typeof window !== 'undefined' && (window.matchMedia?.('(display-mode: standalone)').matches || window.navigator.standalone === true || readFlag('ipos.installed') === '1');
-const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+// ---- app install (shared with the /install page)
+import { installListeners, canPromptInstall, promptInstall, isInstalled, isIOS, readFlag, writeFlag } from './install';
 
 // ---- facts from the store's data
 async function count(table, cid) {
@@ -69,9 +60,9 @@ export function useSetupGuide(auth) {
 function InstallAction() {
   const [busy, setBusy] = useState(false), [help, setHelp] = useState('');
   async function install() {
-    if (installEvent) {
+    if (canPromptInstall()) {
       setBusy(true);
-      try { installEvent.prompt(); const r = await installEvent.userChoice; if (r?.outcome === 'accepted') writeFlag('ipos.installed', '1'); installEvent = null; installListeners.forEach(f => f()); }
+      try { await promptInstall(); }
       finally { setBusy(false); }
       return;
     }
