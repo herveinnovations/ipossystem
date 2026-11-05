@@ -1,4 +1,5 @@
 import {LanguagePicker,useLanguage} from './LanguagePicker';
+import '@fontsource-variable/outfit';
 import './install';
 import BackHome from './BackHome';
 import {t} from './i18n';

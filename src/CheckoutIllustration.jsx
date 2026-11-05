@@ -30,9 +30,9 @@ export default function CheckoutIllustration() {
         <rect x="322" y="66" width="78" height="40" rx="4" fill="#2b7d5c" />
         <rect x="328" y="72" width="66" height="28" rx="3" fill="none" stroke="#9fd2b9" strokeWidth="1.5" />
         <circle cx="361" cy="86" r="11" fill="#1f6a4d" />
-        <text x="361" y="91" textAnchor="middle" fontSize="14" fontWeight="800" fill="#fff" fontFamily="Trebuchet MS, sans-serif">K</text>
+        <text x="361" y="91" textAnchor="middle" fontSize="14" fontWeight="800" fill="#fff" fontFamily="Outfit Variable, Outfit, sans-serif">K</text>
       </g>
-      <g fontFamily="Trebuchet MS, sans-serif" fontWeight="800" fontSize="11" fill="#7a3f12" textAnchor="middle">
+      <g fontFamily="Outfit Variable, Outfit, sans-serif" fontWeight="800" fontSize="11" fill="#7a3f12" textAnchor="middle">
         <circle cx="430" cy="118" r="13" fill="#f2c48d" stroke="#e09a4c" strokeWidth="3" /><text x="430" y="122">K</text>
         <circle cx="450" cy="92" r="11" fill="#f2c48d" stroke="#e09a4c" strokeWidth="3" /><text x="450" y="96">K</text>
       </g>
@@ -54,7 +54,7 @@ export default function CheckoutIllustration() {
       <rect x="297" y="205" width="82" height="11" rx="3" fill="#1f6a4d" />
       <circle cx="338" cy="232" r="9" fill="#1f6a4d" />
       <path d="M333.5 232l3.2 3.2 6-6.4" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="338" y="257" textAnchor="middle" fontSize="13" fontWeight="800" fill="#1f6a4d" fontFamily="Trebuchet MS, sans-serif">K68.00</text>
+      <text x="338" y="257" textAnchor="middle" fontSize="13" fontWeight="800" fill="#1f6a4d" fontFamily="Outfit Variable, Outfit, sans-serif">K68.00</text>
 
       {/* receipt printer and receipt */}
       <rect x="396" y="278" width="46" height="22" rx="4" fill="#33463c" />
@@ -104,7 +104,7 @@ export default function CheckoutIllustration() {
       <g transform="rotate(18 262 196)">
         <rect x="248" y="172" width="28" height="48" rx="5" fill="#17251e" />
         <rect x="252" y="178" width="20" height="34" rx="2" fill="#f2c48d" />
-        <text x="262" y="200" textAnchor="middle" fontSize="11" fontWeight="800" fill="#7a3f12" fontFamily="Trebuchet MS, sans-serif">K</text>
+        <text x="262" y="200" textAnchor="middle" fontSize="11" fontWeight="800" fill="#7a3f12" fontFamily="Outfit Variable, Outfit, sans-serif">K</text>
       </g>
     </svg>
   );
