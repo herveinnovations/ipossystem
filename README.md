@@ -1,4 +1,4 @@
-# iPOS — Retail POS
+# iPOS - Retail POS
 
 React + Vite + Tailwind CSS with Supabase Auth and company-scoped RLS. Includes POS, products/costs, suppliers/purchases, quotations, receipts, cashbook, reports, returns, shifts, stock adjustments, staff management and audit history.
 
@@ -134,7 +134,7 @@ Each device can use **Light**, **Dark** or **Match this device** (sidebar button
 
 The iPOS creator has a private console at **ipos-creator.vercel.app** (source in `creator/`, its own Vercel project). It shows crashes, visits on a world map (country and city from the connection, never GPS), who is online / away / offline (and offline sales waiting to sync), every shop and account with email-verification status, sign-ups per day, and feedback.
 
-iPOS feeds it in the background (`src/telemetry.js` → `api/track.js`, which adds the approximate location from Vercel's connection headers): one visit per app load, crashes (window errors, unhandled promises and React render errors), and a heartbeat every minute while iPOS is open. Nothing is sent in development. Staff can send feedback from the sidebar. The privacy note is on the Help page. Database: `supabase/creator-console.sql` — reports go to tables with no read access for shops; only the allow-listed creator can read them through `creator_*` functions.
+iPOS feeds it in the background (`src/telemetry.js` → `api/track.js`, which adds the approximate location from Vercel's connection headers): one visit per app load, crashes (window errors, unhandled promises and React render errors), and a heartbeat every minute while iPOS is open. Nothing is sent in development. Staff can send feedback from the sidebar. The privacy note is on the Help page. Database: `supabase/creator-console.sql` - reports go to tables with no read access for shops; only the allow-listed creator can read them through `creator_*` functions.
 
 ## Spreadsheet-style accounting
 

@@ -1,4 +1,4 @@
-# iPOS launch setup — things to do outside the code
+# iPOS launch setup - things to do outside the code
 
 Do these once, in this order, when you approve the launch changes. Nothing here is done
 automatically.
@@ -22,7 +22,7 @@ Anything you leave out is simply hidden on the site.
 | `VITE_PRICE_YEARLY_MONTHS` | 10 | A year costs this many months (default 10 = 2 free) |
 
 Have the Terms of Service and Privacy Policy pages (`/terms`, `/privacy`) checked by a Zambian
-lawyer before you take payments — they are a good starting draft, not legal advice. If you are
+lawyer before you take payments - they are a good starting draft, not legal advice. If you are
 collecting personal data at scale you may also need to register with the Office of the Data
 Protection Commissioner.
 
@@ -42,11 +42,11 @@ add paid time, extend trials, or put a shop on hold.
 
 ## 3. Emails from your own address (about 20 minutes)
 
-Supabase's built-in email sender is only for testing — it is heavily rate-limited and often goes
+Supabase's built-in email sender is only for testing - it is heavily rate-limited and often goes
 to spam.
 
 1. Buy a domain if you don't have one (e.g. `ipos.co.zm` from a ZICTA-accredited registrar, or a `.com`).
-2. Create a free **Resend** account (free plan: 3,000 emails a month, 100 a day — plenty to start; paid plans from $20/month).
+2. Create a free **Resend** account (free plan: 3,000 emails a month, 100 a day - plenty to start; paid plans from $20/month).
 3. Resend → Domains → add `mail.yourdomain.com` → copy the DNS records it shows into your domain's DNS. Wait until it says **Verified**.
 4. Resend → API keys → create one with "Sending access".
 5. Supabase → Authentication → Emails → **SMTP settings** → Enable custom SMTP:
@@ -64,12 +64,12 @@ to spam.
 ## 4. Account security (Supabase → Authentication → Providers → Email)
 
 - **Minimum password length: 10**, and require **letters and digits** (the app already asks for this; this makes the server enforce it too).
-- **Leaked password protection: on** (checks passwords against known breaches). This needs the Pro plan — see step 5.
+- **Leaked password protection: on** (checks passwords against known breaches). This needs the Pro plan - see step 5.
 - Keep "Confirm email" on.
 
 ## 5. Backups (Supabase → Organization → Billing)
 
-The free Supabase plan has **no backups** and pauses projects after a week without activity —
+The free Supabase plan has **no backups** and pauses projects after a week without activity -
 not safe once shops depend on iPOS.
 
 - Upgrade the project to **Pro (from $25/month)**: daily backups kept for 7 days, no pausing,
