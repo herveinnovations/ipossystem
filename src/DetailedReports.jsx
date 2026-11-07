@@ -42,7 +42,7 @@ function presets(day) {
 }
 
 function DataTable({ view, fmt }) {
-  const show = (c, v) => c.render ? c.render(v) : v == null || v === '' ? '—' : c.type === 'money' ? fmt(v) : c.type === 'number' ? Number(v).toLocaleString('en-ZM') : v;
+  const show = (c, v) => c.render ? c.render(v) : v == null || v === '' ? '-' : c.type === 'money' ? fmt(v) : c.type === 'number' ? Number(v).toLocaleString('en-ZM') : v;
   return (
     <div className="table-panel table-scroll">
       <table className="sheet-table">
@@ -117,13 +117,13 @@ export default function DetailedReports({ auth }) {
     };
     if (t === tabs[6]) return {
       columns: [{ header: 'Product', key: 'name', type: 'text' }, { header: 'Sold last 30 days', key: 'month', type: 'number' }, { header: 'Normal max', key: 'max', type: 'number' }, { header: 'Reorder level', key: 'level', type: 'number' }, { header: 'In stock', key: 'qty', type: 'number' }, { header: 'Status', key: 'status', type: 'text' }, { header: 'Advice', key: 'advice', type: 'text' }],
-      rows: model.stock.map(p => { const max = Math.max(p.recent, Number(p.low_stock_threshold) + 1), low = Number(p.stock_quantity) <= Number(p.low_stock_threshold); return { name: `${p.sku} / ${p.name}`, month: p.recent, max, level: Number(p.low_stock_threshold), qty: Number(p.stock_quantity), status: Number(p.stock_quantity) === 0 ? 'Out of stock' : low ? 'Please restock' : 'Satisfactory', advice: low ? `Buy ${Math.max(0, max - Number(p.stock_quantity))} units` : '—' }; }),
+      rows: model.stock.map(p => { const max = Math.max(p.recent, Number(p.low_stock_threshold) + 1), low = Number(p.stock_quantity) <= Number(p.low_stock_threshold); return { name: `${p.sku} / ${p.name}`, month: p.recent, max, level: Number(p.low_stock_threshold), qty: Number(p.stock_quantity), status: Number(p.stock_quantity) === 0 ? 'Out of stock' : low ? 'Please restock' : 'Satisfactory', advice: low ? `Buy ${Math.max(0, max - Number(p.stock_quantity))} units` : '-' }; }),
     };
     return null;
   }
 
   function sheetFor(t) {
-    if (t === tabs[2]) return { name: 'Profit & Loss', title: 'Profit & Loss statement', subtitle: plLabels.current, lines: pl, valueColumns: [{ header: 'This period', key: 'value' }, ...(prev ? [{ header: prev.label, key: 'prev' }, { header: 'Change', key: 'change', type: 'percent' }] : [])], notes: [`Comparison: ${plLabels.previous || 'none'}.`, 'Amounts exclude tax. Cost of goods sold uses the cost recorded when each item was sold.', ...(plNow.missingSaleCosts ? [`${plNow.missingSaleCosts} sold item(s) have no cost yet — add them in Financial data.`] : [])] };
+    if (t === tabs[2]) return { name: 'Profit & Loss', title: 'Profit & Loss statement', subtitle: plLabels.current, lines: pl, valueColumns: [{ header: 'This period', key: 'value' }, ...(prev ? [{ header: prev.label, key: 'prev' }, { header: 'Change', key: 'change', type: 'percent' }] : [])], notes: [`Comparison: ${plLabels.previous || 'none'}.`, 'Amounts exclude tax. Cost of goods sold uses the cost recorded when each item was sold.', ...(plNow.missingSaleCosts ? [`${plNow.missingSaleCosts} sold item(s) have no cost yet - add them in Financial data.`] : [])] };
     if (t === tabs[5]) return { name: 'Balance Sheet', title: 'Balance sheet', subtitle: bsLabels.current, lines: bs, valueColumns: [{ header: bsLabels.current, key: 'value' }, ...(bsPrevDate ? [{ header: bsLabels.previous, key: 'prev' }, { header: 'Change', key: 'change', type: 'percent' }] : [])], notes: ['Stock is valued at current unit costs. Earlier dates are rebuilt by undoing later sales, deliveries, adjustments and customer payments.', "Owner's equity is assets minus liabilities."] };
     const v = viewFor(t);
     return v && { name: t, title: t, subtitle: `${nice(range.from)} – ${nice(range.to)}`, columns: v.columns, rows: v.rows, totals: v.totals };
@@ -132,7 +132,7 @@ export default function DetailedReports({ auth }) {
   async function exportExcel(all) {
     setMenu(false); setExporting(true);
     try {
-      if (!bs) throw Error('Still loading the balance sheet — try again in a moment.');
+      if (!bs) throw Error('Still loading the balance sheet - try again in a moment.');
       const sheets = (all ? tabs : [tab]).map(sheetFor).filter(Boolean);
       await downloadWorkbook(`ipos-${all ? 'reports' : tab.toLowerCase().replaceAll(' ', '-').replace(/[^a-z-]/g, '')}-${range.from}-to-${range.to}`, { store, currency: c, sheets });
       toast(all ? 'Excel workbook with all reports downloaded.' : `${tab} downloaded as Excel.`);
@@ -154,7 +154,7 @@ export default function DetailedReports({ auth }) {
   return (
     <>
       <div className="page-heading">
-        <div><span className="eyebrow">STORE OPERATIONS</span><h1>Reports & Analytics</h1><p>Statements, sales, stock and supplier balances — download any of them as Excel.</p></div>
+        <div><span className="eyebrow">STORE OPERATIONS</span><h1>Reports & Analytics</h1><p>Statements, sales, stock and supplier balances - download any of them as Excel.</p></div>
         <div className="heading-actions">
           <button className="secondary" disabled={!data || loading} onClick={() => setFinancialEditing(true)}>Costs & opening balances</button>
           <button className="secondary" disabled={loading} onClick={() => setRevision(n => n + 1)}><RefreshCw size={17} />Refresh</button>
@@ -162,9 +162,9 @@ export default function DetailedReports({ auth }) {
             <button className="primary" disabled={!model || loading || exporting} aria-expanded={menu} onClick={() => setMenu(o => !o)}><FileSpreadsheet size={17} />{exporting ? 'Preparing…' : 'Download'}<ChevronDown size={15} /></button>
             {menu && (
               <div className="menu" role="menu">
-                <button role="menuitem" onClick={() => exportExcel(false)}><FileSpreadsheet size={16} /><span><strong>Excel — this report</strong><small>{tab}</small></span></button>
-                <button role="menuitem" onClick={() => exportExcel(true)}><FileSpreadsheet size={16} /><span><strong>Excel — all reports</strong><small>One workbook, a sheet per report</small></span></button>
-                <button role="menuitem" onClick={exportCSV}><FileText size={16} /><span><strong>CSV — this report</strong><small>Plain text for other programs</small></span></button>
+                <button role="menuitem" onClick={() => exportExcel(false)}><FileSpreadsheet size={16} /><span><strong>Excel - this report</strong><small>{tab}</small></span></button>
+                <button role="menuitem" onClick={() => exportExcel(true)}><FileSpreadsheet size={16} /><span><strong>Excel - all reports</strong><small>One workbook, a sheet per report</small></span></button>
+                <button role="menuitem" onClick={exportCSV}><FileText size={16} /><span><strong>CSV - this report</strong><small>Plain text for other programs</small></span></button>
               </div>
             )}
           </div>

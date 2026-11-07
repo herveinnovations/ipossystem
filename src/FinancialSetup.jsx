@@ -31,7 +31,7 @@ function CostGrid({ rows, columns, values, onChange, currency, label }) {
             <tr key={r.id} className={values[r.id] === '' || values[r.id] == null ? 'blank' : ''}>
               {columns.map(c => c.input ? (
                 <td key={c.key} className="cell-input">
-                  <input ref={el => { refs.current[i] = el; }} inputMode="decimal" aria-label={`${c.header} for ${r.label}`} placeholder="—"
+                  <input ref={el => { refs.current[i] = el; }} inputMode="decimal" aria-label={`${c.header} for ${r.label}`} placeholder="-"
                     value={values[r.id] ?? ''} onChange={e => onChange({ ...values, [r.id]: e.target.value.replace(/[^\d.]/g, '') })}
                     onKeyDown={e => { if (e.key === 'Enter' || e.key === 'ArrowDown') { e.preventDefault(); move(i, 1); } if (e.key === 'ArrowUp') { e.preventDefault(); move(i, -1); } }}
                     onPaste={e => paste(e, i)} />
@@ -57,7 +57,7 @@ export default function FinancialSetup({ data, cid, currency, onClose, onSaved }
 
   const productRows = data.products.map(p => ({ id: p.id, label: p.name, name: p.name, sku: p.sku, stock: Number(p.stock_quantity), price: Number(p.selling_price) }))
     .filter(r => match(`${r.name} ${r.sku}`) && (!onlyBlank || !products[r.id])).sort((a, b) => a.name.localeCompare(b.name));
-  const saleRows = data.sale_items.map(i => ({ id: i.id, label: `${i.product_name} on ${salesById[i.sale_id]?.receipt_number || 'sale'}`, receipt: salesById[i.sale_id]?.receipt_number || '—', date: salesById[i.sale_id]?.created_at, name: i.product_name, qty: Number(i.quantity), price: Number(i.unit_price), product_id: i.product_id }))
+  const saleRows = data.sale_items.map(i => ({ id: i.id, label: `${i.product_name} on ${salesById[i.sale_id]?.receipt_number || 'sale'}`, receipt: salesById[i.sale_id]?.receipt_number || '-', date: salesById[i.sale_id]?.created_at, name: i.product_name, qty: Number(i.quantity), price: Number(i.unit_price), product_id: i.product_id }))
     .filter(r => match(`${r.name} ${r.receipt}`) && (!onlyBlank || !saleCosts[r.id])).sort((a, b) => String(b.date).localeCompare(String(a.date)));
   const blankProducts = data.products.filter(p => Number(p.stock_quantity) > 0 && !products[p.id]).length;
   const blankSales = data.sale_items.filter(i => !saleCosts[i.id]).length;
@@ -67,7 +67,7 @@ export default function FinancialSetup({ data, cid, currency, onClose, onSaved }
     let n = 0; const next = { ...saleCosts };
     for (const i of data.sale_items) if (!next[i.id] && products[i.product_id]) { next[i.id] = products[i.product_id]; n++; }
     setSaleCosts(next);
-    toast(n ? `Filled ${n} past sale cost${n === 1 ? '' : 's'} from current product costs. Check them, then save.` : 'No blanks could be filled — add product costs first.', n ? 'success' : 'info');
+    toast(n ? `Filled ${n} past sale cost${n === 1 ? '' : 's'} from current product costs. Check them, then save.` : 'No blanks could be filled - add product costs first.', n ? 'success' : 'info');
   }
 
   async function save(e) {
@@ -81,7 +81,7 @@ export default function FinancialSetup({ data, cid, currency, onClose, onSaved }
     } catch (err) { setError(err.message); } finally { setBusy(false); }
   }
 
-  const margin = (r, v) => { if (!v || !r.price) return '—'; const m = (r.price - Number(v)) / r.price; return <span className={m < 0 ? 'neg' : ''}>{(m * 100).toFixed(0)}%</span>; };
+  const margin = (r, v) => { if (!v || !r.price) return '-'; const m = (r.price - Number(v)) / r.price; return <span className={m < 0 ? 'neg' : ''}>{(m * 100).toFixed(0)}%</span>; };
   return (
     <div className="modal-backdrop">
       <div className="modal operation-modal grid-modal" role="dialog" aria-label="Costs and opening balances">
@@ -107,18 +107,18 @@ export default function FinancialSetup({ data, cid, currency, onClose, onSaved }
                 { key: 'price', header: 'Selling price', num: true, render: r => money(r.price, currency) },
                 { key: 'cost', header: `Unit cost (${currency})`, input: true },
                 { key: 'margin', header: 'Margin', num: true, render: (r, v) => margin(r, v) },
-                { key: 'value', header: 'Stock value', num: true, render: (r, v) => v ? money(Number(v) * Math.max(0, r.stock), currency) : '—' },
+                { key: 'value', header: 'Stock value', num: true, render: (r, v) => v ? money(Number(v) * Math.max(0, r.stock), currency) : '-' },
               ]} />
               <p className="grid-foot"><span>Stock value at cost: <strong>{money(stockValue, currency)}</strong></span>{blankProducts > 0 && <span className="neg">{blankProducts} product(s) in stock still need a cost</span>}</p>
             </>}
             {tab === 'sales' && <>
               <CostGrid label="Past sale costs" currency={currency} rows={saleRows.slice(0, 500)} values={saleCosts} onChange={setSaleCosts} columns={[
-                { key: 'receipt', header: 'Receipt' }, { key: 'date', header: 'Date', render: r => r.date ? new Date(r.date).toLocaleDateString('en-GB', { timeZone: 'Africa/Lusaka' }) : '—' },
+                { key: 'receipt', header: 'Receipt' }, { key: 'date', header: 'Date', render: r => r.date ? new Date(r.date).toLocaleDateString('en-GB', { timeZone: 'Africa/Lusaka' }) : '-' },
                 { key: 'name', header: 'Product' }, { key: 'qty', header: 'Qty', num: true }, { key: 'price', header: 'Sold at', num: true, render: r => money(r.price, currency) },
                 { key: 'cost', header: `Unit cost (${currency})`, input: true },
                 { key: 'margin', header: 'Margin', num: true, render: (r, v) => margin(r, v) },
               ]} />
-              <p className="grid-foot"><span>Changing a product's cost doesn't change past sales — they keep the cost they were sold at.{saleRows.length > 500 ? ` Showing the newest 500 of ${saleRows.length}; search to find others.` : ''}</span></p>
+              <p className="grid-foot"><span>Changing a product's cost doesn't change past sales - they keep the cost they were sold at.{saleRows.length > 500 ? ` Showing the newest 500 of ${saleRows.length}; search to find others.` : ''}</span></p>
             </>}
             {tab === 'opening' && <>
               <p className="muted">Opening cash is what you had in cash, mobile money and bank at the start of the opening date. Other assets and liabilities are current amounts not tracked elsewhere (e.g. equipment, loans, tax owed). Leave cash blank to keep the balance sheet unconfigured.</p>

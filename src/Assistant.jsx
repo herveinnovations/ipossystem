@@ -140,7 +140,7 @@ function AssistantContent({ auth }) {
             <button className="primary" aria-label="Ask"><Send size={17} /> Ask</button>
           </form>
           {miss && (
-            <div className="assist-miss" role="status"><span>I can't answer “{miss}” yet. I can answer the questions below — tap one.</span><button type="button" aria-label="Dismiss" onClick={() => setMiss('')}><X size={15} /></button></div>
+            <div className="assist-miss" role="status"><span>I can't answer “{miss}” yet. I can answer the questions below - tap one.</span><button type="button" aria-label="Dismiss" onClick={() => setMiss('')}><X size={15} /></button></div>
           )}
           <div className="assist-chips">{questions.map(q => <button key={q.id} type="button" onClick={() => ask(q)}>{q.q}</button>)}</div>
           <div className="assist-answers">

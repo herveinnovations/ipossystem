@@ -34,12 +34,12 @@ const SHOPS = [
 
 const FAQ = [
   ['Do I need internet all the time?', 'No. iPOS keeps selling when the internet goes off and catches up by itself when it’s back. You need internet the first time you sign in on a device.'],
-  ['What do I need to start?', 'Any phone, tablet or computer with a modern browser. A barcode scanner and receipt printer are optional — you can also scan with the phone camera.'],
+  ['What do I need to start?', 'Any phone, tablet or computer with a modern browser. A barcode scanner and receipt printer are optional - you can also scan with the phone camera.'],
   ['Can I bring my existing product list?', 'Yes. Upload your products from Excel or a CSV file, check them on screen, and import hundreds at once.'],
   ['How do I pay?', 'Pay monthly or yearly by MTN Money, Airtel Money or bank transfer, then enter the payment reference in iPOS. No card needed.'],
-  ['What happens after the free trial?', `Your shop keeps everything. If you haven’t paid, selling pauses ${SITE.price.graceDays} days after the trial ends — you can still see and download all your data, and selling starts again as soon as you pay.`],
+  ['What happens after the free trial?', `Your shop keeps everything. If you haven’t paid, selling pauses ${SITE.price.graceDays} days after the trial ends - you can still see and download all your data, and selling starts again as soon as you pay.`],
   ['Is my shop’s data safe?', 'Each shop’s data is kept separate and only your own staff can see it. Every action is recorded, and you can download your data to Excel any time.'],
-  ['Can I cancel?', 'Yes, any time. There’s no contract — simply don’t renew. You can download your data first.'],
+  ['Can I cancel?', 'Yes, any time. There’s no contract - simply don’t renew. You can download your data first.'],
 ];
 
 function PlanCard({ p }) {

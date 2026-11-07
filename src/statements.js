@@ -2,7 +2,7 @@
 //
 // Every statement is a list of lines: { key, label, value, kind, indent, note }
 //   kind: 'header' | 'item' | 'subtotal' | 'total' | 'percent' | 'note'
-//   value: number, or null when it can't be worked out yet (e.g. missing costs) — shown as "Not recorded".
+//   value: number, or null when it can't be worked out yet (e.g. missing costs) - shown as "Not recorded".
 // Past balances are rebuilt from today's figures by undoing everything recorded after the date.
 import { cashbookLedger } from './operation-utils.js';
 
@@ -168,7 +168,7 @@ export function compare(current, previous) {
 /**
  * Cashbook as a running-balance ledger for [from, to], oldest first.
  * Opening balance = configured opening cash + movements from the opening date to the day before `from`
- * (null when no opening cash is set, or the period starts before it — then the balance runs from 0).
+ * (null when no opening cash is set, or the period starts before it - then the balance runs from 0).
  */
 export function cashbookSheet(ledger, from, to, opening = null) {
   let openingBalance = null;

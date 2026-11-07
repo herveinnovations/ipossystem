@@ -84,7 +84,7 @@ export function FlagsNotice({ auth }) {
   return (
     <div className={'flags-alert' + (counts.high ? ' serious' : '')} role="status">
       <ShieldAlert size={18} />
-      <span><strong>{counts.open} {counts.open === 1 ? 'thing needs' : 'things need'} a second look</strong>{counts.high ? ` · ${counts.high} serious` : ''} — drawer shortages, unusual refunds, discounts or missing stock.</span>
+      <span><strong>{counts.open} {counts.open === 1 ? 'thing needs' : 'things need'} a second look</strong>{counts.high ? ` · ${counts.high} serious` : ''} - drawer shortages, unusual refunds, discounts or missing stock.</span>
       <Link to="/flags">Review checks</Link>
     </div>
   );
@@ -160,7 +160,7 @@ function FlagsContent({ auth }) {
                       <div className="flag-title"><span className={'badge ' + tone}>{sevLabel}</span><strong>{f.title}</strong></div>
                       <p>{f.detail}</p>
                       <small>{[f.who, fmtWhen(f.at)].filter(Boolean).join(' · ')}</small>
-                      {r && r.status !== 'open' && <small className="flag-review">{r.status === 'ok' ? 'Checked' : 'Being looked into'} by {r.reviewed_name || 'a director'} on {fmtWhen(r.reviewed_at)}{r.note ? ` — “${r.note}”` : ''}</small>}
+                      {r && r.status !== 'open' && <small className="flag-review">{r.status === 'ok' ? 'Checked' : 'Being looked into'} by {r.reviewed_name || 'a director'} on {fmtWhen(r.reviewed_at)}{r.note ? ` - “${r.note}”` : ''}</small>}
                       {noting === f.key && (
                         <form className="flag-note" onSubmit={e => { e.preventDefault(); review(f, 'ok', note); }}>
                           <input autoFocus maxLength={500} placeholder="What did you find? (optional)" value={note} onChange={e => setNote(e.target.value)} aria-label="Note" />

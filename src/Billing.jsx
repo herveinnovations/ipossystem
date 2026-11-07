@@ -102,7 +102,7 @@ export default function Billing({ auth, subscription }) {
           </div>
           {hasPay ? (
             <div className="pay-options">
-              {pay.sample && <p className="sample-flag">Sample details — set your real MTN, Airtel and bank details before launch.</p>}
+              {pay.sample && <p className="sample-flag">Sample details - set your real MTN, Airtel and bank details before launch.</p>}
               {pay.mtn.number && <div className="pay-box"><h3><Smartphone size={17} /> MTN Money</h3><CopyLine label="Number" value={pay.mtn.number} /><CopyLine label="Name" value={pay.mtn.name} /></div>}
               {pay.airtel.number && <div className="pay-box"><h3><Smartphone size={17} /> Airtel Money</h3><CopyLine label="Number" value={pay.airtel.number} /><CopyLine label="Name" value={pay.airtel.name} /></div>}
               {pay.bank.account && <div className="pay-box"><h3><Landmark size={17} /> Bank transfer</h3><CopyLine label="Bank" value={pay.bank.bank} /><CopyLine label="Account" value={pay.bank.account} /><CopyLine label="Name" value={pay.bank.name} /><CopyLine label="Branch" value={pay.bank.branch} /></div>}
@@ -116,7 +116,7 @@ export default function Billing({ auth, subscription }) {
           {error && <div className="notice" role="alert">{error}</div>}
           <form className="pay-form" onSubmit={submit}>
             <label>How did you pay?<select value={form.method} onChange={e => setForm({ ...form, method: e.target.value })}>{METHODS.map(x => <option key={x}>{x}</option>)}</select></label>
-            <label>Period<select value={form.months} onChange={e => setForm({ ...form, months: Number(e.target.value) })}>{MONTHS.map(([n, l]) => <option key={n} value={n}>{l} — {kwacha(planPrice(SITE.price, branches, n))}</option>)}</select></label>
+            <label>Period<select value={form.months} onChange={e => setForm({ ...form, months: Number(e.target.value) })}>{MONTHS.map(([n, l]) => <option key={n} value={n}>{l} - {kwacha(planPrice(SITE.price, branches, n))}</option>)}</select></label>
             <label>Transaction reference (from the SMS or bank slip)<input required minLength={3} maxLength={80} placeholder="e.g. MP241101.1530.A12345" value={form.reference} onChange={e => setForm({ ...form, reference: e.target.value })} /></label>
             <label>Phone number you paid from (optional)<input type="tel" maxLength={30} placeholder="e.g. 0977 123 456" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></label>
             <div className="pay-total"><span>Amount</span><strong>{kwacha(amount)}</strong></div>

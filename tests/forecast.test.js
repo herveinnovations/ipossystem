@@ -33,7 +33,7 @@ test('steady seller: days left, run-out day, order-by day, suggested quantity', 
   assert.equal(runOutSentence(sugar), "You'll run out of Sugar 2kg in about 4 days (Tue 20 Oct).");
   assert.equal(adviceLine(sugar, today), 'Order 55 by Sun 18 Oct · sells ~5/day');
   assert.deepEqual(rows.map(r => r.product_id), ['bread', 'sugar', 'rice']); // soap never sold: no forecast
-  assert.equal(runOutSentence(rows[0]), 'White bread is out of stock — it sells about 10 a day.');
+  assert.equal(runOutSentence(rows[0]), 'White bread is out of stock - it sells about 10 a day.');
   assert.deepEqual(runningOut(rows).map(r => r.product_id), ['bread', 'sugar']);
 });
 

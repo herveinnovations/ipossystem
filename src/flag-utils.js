@@ -85,7 +85,7 @@ export function computeFlags(data, fmt = n => n.toFixed(2), rules = RULES) {
     if (list.length >= rules.heavyRefundCount && sold > 0 && value / sold >= rules.heavyRefundShare) {
       const who = saleById.get(list[0].sale_id)?.cashier_name || nameOf(cashier);
       out.push({ key: `many-refunds:${cashier}:${list.length}`, type: 'many-refunds', severity: 'medium', title: `${list.length} refunds on one cashier's sales`,
-        detail: `${fmt(value)} refunded — ${Math.round(value / sold * 100)}% of ${who}'s sales in this period.`, at: list.map(r => r.created_at).sort().at(-1), who, amount: value, ref: cashier });
+        detail: `${fmt(value)} refunded - ${Math.round(value / sold * 100)}% of ${who}'s sales in this period.`, at: list.map(r => r.created_at).sort().at(-1), who, amount: value, ref: cashier });
     }
   }
 
@@ -126,7 +126,7 @@ export function computeFlags(data, fmt = n => n.toFixed(2), rules = RULES) {
     if (LOSS.test(a.reason || '')) lossByProduct.set(a.product_id, [...(lossByProduct.get(a.product_id) || []), a]);
     if (-q >= rules.lossUnits) {
       out.push({ key: 'big-loss:' + a.id, type: 'big-loss', severity: 'medium', title: `${-q} × ${name} removed from stock`,
-        detail: `Reason: ${a.reason || 'none'}${a.notes ? ` — “${a.notes}”` : ''}.${p ? ` Worth about ${fmt(-q * num(p.selling_price))} at selling price.` : ''}`, at: a.created_at, who: nameOf(a.created_by), amount: p ? -q * num(p.selling_price) : 0, ref: a.product_id });
+        detail: `Reason: ${a.reason || 'none'}${a.notes ? ` - “${a.notes}”` : ''}.${p ? ` Worth about ${fmt(-q * num(p.selling_price))} at selling price.` : ''}`, at: a.created_at, who: nameOf(a.created_by), amount: p ? -q * num(p.selling_price) : 0, ref: a.product_id });
     }
   }
   for (const [pid, list] of lossByProduct) {

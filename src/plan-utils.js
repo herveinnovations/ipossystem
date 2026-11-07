@@ -55,5 +55,5 @@ export function planSummary(sub, { now = Date.now(), director = true } = {}) {
 /** Friendly text for the database's "plan ended" refusal. */
 export function planError(message = '') {
   if (!/IPOS_PLAN_ENDED/.test(message)) return null;
-  return 'This shop’s iPOS plan has ended, so new sales can’t be recorded. The owner can renew under Billing — all your data is safe.';
+  return 'This shop’s iPOS plan has ended, so new sales can’t be recorded. The owner can renew under Billing - all your data is safe.';
 }

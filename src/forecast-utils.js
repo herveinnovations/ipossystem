@@ -57,7 +57,7 @@ const rate = n => n >= 10 ? Math.round(n) : n >= 1 ? Math.round(n * 10) / 10 : M
 /** "You'll run out of Sugar 2kg in about 4 days (Tue 20 Oct)." */
 export function runOutSentence(r) {
   const d = Math.floor(r.daysLeft);
-  if (r.stock <= 0) return `${r.name} is out of stock — it sells about ${rate(r.perDay)} a day.`;
+  if (r.stock <= 0) return `${r.name} is out of stock - it sells about ${rate(r.perDay)} a day.`;
   if (d <= 0) return `You'll run out of ${r.name} today at the current pace.`;
   if (d === 1) return `You'll run out of ${r.name} tomorrow.`;
   return `You'll run out of ${r.name} in about ${d} days (${shortDate(r.runOut)}).`;

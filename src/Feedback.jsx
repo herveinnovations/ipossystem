@@ -30,7 +30,7 @@ function FeedbackForm({ auth, onClose }) {
         p_message: message.trim(), p_device: describeDevice(navigator.userAgent, navigator.maxTouchPoints || 0).device,
       });
       if (error) throw error;
-      toast('Thanks — your feedback was sent to the iPOS team.');
+      toast('Thanks - your feedback was sent to the iPOS team.');
       onClose();
     } catch (err) { setError(err?.message || 'Could not send. Check your connection and try again.'); }
     finally { setBusy(false); }

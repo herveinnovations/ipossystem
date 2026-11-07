@@ -252,8 +252,8 @@ export function Customers({ auth }) {
                 {list.map(c => (
                   <tr key={c.id} onClick={() => setOpen(c.id)} className="clickable">
                     <td><strong>{c.name}</strong></td>
-                    <td>{c.phone || '—'}</td>
-                    <td>{Number(c.balance) > 0 ? <span className={'badge ' + (c.credit_limit != null && Number(c.balance) > Number(c.credit_limit) ? 'red' : 'amber')}>{money(c.balance, currency)}</span> : <span className="muted-inline">—</span>}</td>
+                    <td>{c.phone || '-'}</td>
+                    <td>{Number(c.balance) > 0 ? <span className={'badge ' + (c.credit_limit != null && Number(c.balance) > Number(c.credit_limit) ? 'red' : 'amber')}>{money(c.balance, currency)}</span> : <span className="muted-inline">-</span>}</td>
                     <td>{c.credit_limit == null ? <span className="muted-inline">No limit</span> : money(c.credit_limit, currency)}</td>
                     <td><button className={'offer-toggle' + (c.marketing_opt_in ? ' is-on' : '')} aria-pressed={Boolean(c.marketing_opt_in)} disabled={!c.phone && !c.marketing_opt_in} title={c.phone ? (c.marketing_opt_in ? 'Stop sending offers' : 'Customer agreed to offers') : 'Add a phone number first'} onClick={e => { e.stopPropagation(); toggleOffers(c); }}><Megaphone size={14} />{c.marketing_opt_in ? 'Yes' : 'No'}</button></td>
                     <td><button className="link-button" onClick={e => { e.stopPropagation(); setOpen(c.id); }}>View</button></td>

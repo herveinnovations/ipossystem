@@ -88,7 +88,7 @@ function BranchesContent({ auth }) {
             </div>
           )}
           {rows.length === 1 && director && (
-            <div className="integration-note">You have one branch. Add another shop to give it its own stock, staff and sales — your current stock stays in {rows[0].name}.</div>
+            <div className="integration-note">You have one branch. Add another shop to give it its own stock, staff and sales - your current stock stays in {rows[0].name}.</div>
           )}
           <div className="branch-grid">
             {rows.map(r => {

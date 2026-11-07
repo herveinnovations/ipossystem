@@ -16,7 +16,7 @@ const TITLES = {
   magiclink: ['Sign in to iPOS', 'Confirm to sign in to your store workspace.', 'Sign in'],
 };
 
-// /account/email/verify — the page every iPOS email link opens.
+// /account/email/verify - the page every iPOS email link opens.
 // Confirmation waits for a tap, so email security scanners that open links
 // automatically cannot use up the one-time link before the person does.
 export function EmailVerify() {
@@ -95,7 +95,7 @@ export function EmailVerify() {
   );
 }
 
-// /account/register/success — where a confirmed sign-up lands.
+// /account/register/success - where a confirmed sign-up lands.
 export function RegisterSuccess({ auth }) {
   const ready = auth.session && auth.membership;
   const working = auth.loading || (auth.session && !auth.membership && !auth.error);

@@ -47,7 +47,7 @@ test('daily summary in plain words', () => {
   assert.equal(b.lines[2], 'Today so far: K120.00 from 1 sale.');
   assert.ok(b.lines.includes('1 product that sold this week is now out of stock: Bread.'));
   assert.ok(b.lines.includes('1 product is running low.'));
-  assert.ok(b.lines.includes('1 batch of stock expires within 7 days — sell it first.'));
+  assert.ok(b.lines.includes('1 batch of stock expires within 7 days - sell it first.'));
   assert.ok(b.lines.includes('Customers owe you K250.00 on credit.'));
   assert.equal(dailyBrief(ctx({ sales: [] })).lines[0], 'There were no sales yesterday (Thursday).');
 });

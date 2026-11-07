@@ -59,7 +59,7 @@ export function Terms() {
 
       <h2>6. Your data</h2>
       <ul>
-        <li>Everything you put into iPOS — products, sales, customers, staff, expenses — belongs to you. You can download it at any time.</li>
+        <li>Everything you put into iPOS - products, sales, customers, staff, expenses - belongs to you. You can download it at any time.</li>
         <li>You allow us to store and process it only to run, secure, support and improve iPOS, as explained in our <Link to="/privacy">Privacy Policy</Link>.</li>
         <li>When you record information about your own customers or staff, you are responsible for having the right to do so and for telling them how you use it, as required by the Data Protection Act, 2021. We process that information on your behalf and on your instructions.</li>
       </ul>
@@ -98,8 +98,8 @@ export function Privacy() {
 
       <h2>Two kinds of information</h2>
       <ul>
-        <li><b>About you and your business</b> — the owner’s and staff members’ accounts. For this, we are the <b>data controller</b>.</li>
-        <li><b>Information your business records in iPOS</b> — such as your customers’ names, phone numbers and balances, sales and stock. Your business is the <b>data controller</b> for this and we act as its <b>data processor</b>: we only use it to provide iPOS to you.</li>
+        <li><b>About you and your business</b> - the owner’s and staff members’ accounts. For this, we are the <b>data controller</b>.</li>
+        <li><b>Information your business records in iPOS</b> - such as your customers’ names, phone numbers and balances, sales and stock. Your business is the <b>data controller</b> for this and we act as its <b>data processor</b>: we only use it to provide iPOS to you.</li>
       </ul>
 
       <h2>What we collect</h2>

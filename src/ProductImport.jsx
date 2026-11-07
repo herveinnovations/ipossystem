@@ -60,7 +60,7 @@ export default function ProductImport({ existing, save, onClose, onDone }) {
       const { map, unknown } = matchHeaders(all[0]);
       if (!('name' in map) || !('selling_price' in map)) throw Error('We couldn’t find the “Product name” and “Selling price” columns. Download the template to see the headings to use.');
       const body = all.slice(1);
-      if (body.length > MAX_IMPORT) throw Error(`That’s ${body.length} products. Please import up to ${MAX_IMPORT} at a time — split the file into smaller ones.`);
+      if (body.length > MAX_IMPORT) throw Error(`That’s ${body.length} products. Please import up to ${MAX_IMPORT} at a time - split the file into smaller ones.`);
       setUnknown(unknown); setRows(checkRows(body, map, existing));
     } catch (e) { setError(e.message || 'We couldn’t read that file.'); }
   }
@@ -93,7 +93,7 @@ export default function ProductImport({ existing, save, onClose, onDone }) {
         <div className="modal-head"><h2>Import products from Excel</h2><button aria-label="Close" disabled={running} onClick={onClose}><X /></button></div>
         {!rows && <>
           <ol className="import-steps">
-            <li><b>Download the template</b> (or use your own list — we’ll match columns like “Item”, “Price” and “Qty”).</li>
+            <li><b>Download the template</b> (or use your own list - we’ll match columns like “Item”, “Price” and “Qty”).</li>
             <li><b>Fill in one product per row.</b> Only the name and selling price are required.</li>
             <li><b>Upload it here</b>, check the preview, then import.</li>
           </ol>
@@ -118,10 +118,10 @@ export default function ProductImport({ existing, save, onClose, onDone }) {
           <div className="table-scroll import-table"><table><thead><tr><th>Row</th><th>Status</th><th>Product</th><th className="num">Price</th><th className="num">Stock</th><th className="num">Cost</th><th>Code</th><th>Barcode</th></tr></thead>
             <tbody>{list.map(r => { const [Icon, tone, label] = ICON[r.status] || [CheckCircle2, 'green', 'Added']; return (
               <tr key={r.line} className={'imp-' + r.status}><td>{r.line}</td><td><span className={'badge ' + tone}><Icon size={12} /> {label}</span>{r.messages.map(msg => <small key={msg}>{msg}</small>)}</td>
-                <td><strong>{r.values.name || '—'}</strong></td><td className="num">{r.values.selling_price}</td><td className="num">{r.values.stock_quantity}</td><td className="num">{r.values.unit_cost === '' ? '—' : r.values.unit_cost}</td><td>{r.values.sku}</td><td>{r.values.barcode || '—'}</td></tr>); })}</tbody></table>
+                <td><strong>{r.values.name || '-'}</strong></td><td className="num">{r.values.selling_price}</td><td className="num">{r.values.stock_quantity}</td><td className="num">{r.values.unit_cost === '' ? '-' : r.values.unit_cost}</td><td>{r.values.sku}</td><td>{r.values.barcode || '-'}</td></tr>); })}</tbody></table>
             {list.length === 300 && <p className="muted small pad">Showing the first 300 rows.</p>}
           </div>
-          {progress && <div className="import-progress" role="progressbar" aria-valuemin={0} aria-valuemax={progress.total} aria-valuenow={progress.done}><i style={{ width: `${progress.total ? progress.done / progress.total * 100 : 100}%` }} /><span>{result ? `Done — ${result.added} added${result.failed.length ? `, ${result.failed.length} failed` : ''}.` : `Adding ${progress.done} of ${progress.total}…`}</span></div>}
+          {progress && <div className="import-progress" role="progressbar" aria-valuemin={0} aria-valuemax={progress.total} aria-valuenow={progress.done}><i style={{ width: `${progress.total ? progress.done / progress.total * 100 : 100}%` }} /><span>{result ? `Done - ${result.added} added${result.failed.length ? `, ${result.failed.length} failed` : ''}.` : `Adding ${progress.done} of ${progress.total}…`}</span></div>}
           <div className="modal-actions">
             {(counts.error > 0 || counts.skip > 0) && <button type="button" className="secondary" disabled={running} onClick={downloadProblems}><Download size={15} /> Download rows to fix</button>}
             {!result && <button type="button" className="secondary" disabled={running} onClick={() => { setRows(null); setFile(null); setProgress(null); }}><Upload size={15} /> Choose another file</button>}

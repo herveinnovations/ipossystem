@@ -1,6 +1,6 @@
 // Pure helpers for background reports (unit tested).
 
-/** Rough device, browser and system from the browser's user-agent text — no fingerprinting, just what the console shows. */
+/** Rough device, browser and system from the browser's user-agent text - no fingerprinting, just what the console shows. */
 export function describeDevice(ua = '', touchPoints = 0) {
   const tablet = /iPad|Tablet|PlayBook|Silk/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua)) || (/Macintosh/i.test(ua) && touchPoints > 1);
   const phone = !tablet && /Mobi|iPhone|iPod|Android.*Mobile|Windows Phone/i.test(ua);

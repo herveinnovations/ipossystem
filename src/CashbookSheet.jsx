@@ -40,7 +40,7 @@ export default function CashbookSheet({ auth }) {
   const filtered = useMemo(() => ledger.filter(e => method === 'All' || e.payment_method === method), [ledger, method]);
   // Opening balance only makes sense for all payment methods together.
   const sheet = useMemo(() => cashbookSheet(filtered, range.from, range.to, method === 'All' ? data?.opening : null), [filtered, range, method, data]);
-  const who = r => r.recorded_by || staff.find(s => s.user_id === r.created_by)?.full_name || '—';
+  const who = r => r.recorded_by || staff.find(s => s.user_id === r.created_by)?.full_name || '-';
   const visible = sheet.rows.filter(r => !q || [r.description, r.category, r.payment_method, who(r)].join(' ').toLowerCase().includes(q.toLowerCase()));
   const days = daily ? new Map(dailyTotals(sheet).map(d => [d.day, d])) : null;
   const reversed = useMemo(() => new Set((data?.entries || []).filter(isReversal).map(e => e.description.replace(/^Reversal of /i, '').trim())), [data]);
@@ -78,7 +78,7 @@ export default function CashbookSheet({ auth }) {
     { header: 'Money in', key: 'in', type: 'money' }, { header: 'Money out', key: 'out', type: 'money' }, { header: 'Balance', key: 'balance', type: 'money' },
   ];
   const exportRows = () => [
-    { entry_date: range.from, description: sheet.hasOpening ? 'Opening balance' : 'Opening balance not set — balance starts at 0', balance: sheet.openingBalance ?? 0, _style: 'opening' },
+    { entry_date: range.from, description: sheet.hasOpening ? 'Opening balance' : 'Opening balance not set - balance starts at 0', balance: sheet.openingBalance ?? 0, _style: 'opening' },
     ...visible.map(r => ({ ...r, who: who(r), in: r.in || null, out: r.out || null })),
   ];
   async function exportExcel() {
@@ -101,7 +101,7 @@ export default function CashbookSheet({ auth }) {
   return (
     <>
       <div className="page-heading">
-        <div><span className="eyebrow">ACCOUNTING</span><h1>Cashbook</h1><p>Every shilling in and out, with a running balance — like a cash book in Excel. POS sales are added automatically.</p></div>
+        <div><span className="eyebrow">ACCOUNTING</span><h1>Cashbook</h1><p>Every shilling in and out, with a running balance - like a cash book in Excel. POS sales are added automatically.</p></div>
         <div className="heading-actions">
           <button className="secondary" onClick={() => setRevision(n => n + 1)}><RefreshCw size={17} /> Refresh</button>
           <button className="secondary" onClick={exportCSV} disabled={!data}><Download size={17} /> CSV</button>
@@ -120,7 +120,7 @@ export default function CashbookSheet({ auth }) {
       {loading && !data ? <Skeleton kind="stats" stats={4} rows={7} toolbar={false} label="Loading cashbook…" /> : data && <>
         <div className="stat-grid operation-stats cash-stats">
           {[['Opening balance', sheet.openingBalance, Wallet, sheet.hasOpening ? nice(range.from) : 'Not set'], ['Money in', sheet.totalIn, ArrowDownLeft, `${visible.filter(r => r.in).length} entries`], ['Money out', sheet.totalOut, ArrowUpRight, `${visible.filter(r => r.out).length} entries`], ['Closing balance', sheet.closingBalance, Scale, nice(range.to)]].map(([l, v, Icon, note]) => (
-            <div className="stat-card" key={l}><div>{l}<Icon size={18} /></div><strong>{v === null ? '—' : money(v, c)}</strong><small>{note}</small></div>
+            <div className="stat-card" key={l}><div>{l}<Icon size={18} /></div><strong>{v === null ? '-' : money(v, c)}</strong><small>{note}</small></div>
           ))}
         </div>
         {!sheet.hasOpening && method === 'All' && <div className="integration-note">No opening cash is set{data.opening ? ` before ${nice(data.opening.opening_date)}` : ''}, so the balance starts at zero. Set it in <Link to="/reports">Reports → Costs & opening balances</Link>.</div>}
@@ -129,7 +129,7 @@ export default function CashbookSheet({ auth }) {
           <table className="sheet-table cashbook-sheet">
             <thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Method</th><th>Recorded by</th><th className="num">Money in</th><th className="num">Money out</th><th className="num">Balance</th><th aria-label="Actions" /></tr></thead>
             <tbody>
-              <tr className="sheet-opening"><td>{nice(range.from)}</td><td colSpan={6}><strong>Opening balance</strong>{!sheet.hasOpening && <small> — not set, starting at 0</small>}</td><td className="num"><strong>{money(sheet.openingBalance ?? 0, c)}</strong></td><td /></tr>
+              <tr className="sheet-opening"><td>{nice(range.from)}</td><td colSpan={6}><strong>Opening balance</strong>{!sheet.hasOpening && <small> - not set, starting at 0</small>}</td><td className="num"><strong>{money(sheet.openingBalance ?? 0, c)}</strong></td><td /></tr>
               {visible.map((r, i) => {
                 const next = visible[i + 1], dayTotal = days && (!next || next.entry_date !== r.entry_date) ? days.get(r.entry_date) : null;
                 const canReverse = r.source === 'Manual' && !isReversal(r) && !reversed.has(r.description);
@@ -141,7 +141,7 @@ export default function CashbookSheet({ auth }) {
                       <td>{r.category}</td><td>{r.payment_method}</td><td>{who(r)}</td>
                       <td className="num in">{r.in ? money(r.in, c) : ''}</td><td className="num out">{r.out ? money(r.out, c) : ''}</td>
                       <td className={'num' + (r.balance < 0 ? ' neg' : '')}>{money(r.balance, c)}</td>
-                      <td>{canReverse && <button type="button" className="icon-reverse" title="Reverse — record an opposite entry to cancel this one" aria-label={`Reverse ${r.description}`} onClick={() => reverse(r)}><Undo2 size={14} /></button>}{r.source === 'Manual' && !canReverse && !isReversal(r) && <small className="muted" title="Already reversed">↩︎</small>}</td>
+                      <td>{canReverse && <button type="button" className="icon-reverse" title="Reverse - record an opposite entry to cancel this one" aria-label={`Reverse ${r.description}`} onClick={() => reverse(r)}><Undo2 size={14} /></button>}{r.source === 'Manual' && !canReverse && !isReversal(r) && <small className="muted" title="Already reversed">↩︎</small>}</td>
                     </tr>
                     {dayTotal && <tr className="sheet-subtotal"><td colSpan={5}>Total for {nice(r.entry_date)}</td><td className="num">{money(dayTotal.in, c)}</td><td className="num">{money(dayTotal.out, c)}</td><td className="num">{money(dayTotal.balance, c)}</td><td /></tr>}
                   </React.Fragment>
@@ -164,7 +164,7 @@ export default function CashbookSheet({ auth }) {
             </tfoot>
           </table>
         </form>
-        <p className="muted accounting-note">Type a new entry in the last row and press <b>Enter</b>. Entries can't be edited or deleted — use <b>Reverse</b> to cancel a mistake, which records the opposite entry so your history stays complete. Owner capital, loans and drawings appear here but are not counted as profit or expenses in the Profit & Loss.</p>
+        <p className="muted accounting-note">Type a new entry in the last row and press <b>Enter</b>. Entries can't be edited or deleted - use <b>Reverse</b> to cancel a mistake, which records the opposite entry so your history stays complete. Owner capital, loans and drawings appear here but are not counted as profit or expenses in the Profit & Loss.</p>
       </>}
     </>
   );

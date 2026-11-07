@@ -95,11 +95,11 @@ export function checkRows(rows, map, existing = []) {
     if (low !== null && (Number.isNaN(low) || low < 0 || !Number.isInteger(low))) { messages.push('Low stock alert must be a whole number.'); status = 'error'; }
     if (tax !== null && (Number.isNaN(tax) || tax < 0 || tax > 100)) { messages.push('Tax rate must be between 0 and 100.'); status = 'error'; }
     if (status !== 'error') {
-      if (takenName.has(norm(name))) { messages.push('Already in your products — skipped.'); status = 'skip'; }
-      else if (seenName.has(norm(name))) { messages.push('Listed twice in this file — only the first is imported.'); status = 'skip'; }
-      else if (barcode && takenBarcode.has(barcode)) { messages.push(`Barcode already used by ${takenBarcode.get(barcode)} — skipped.`); status = 'skip'; }
-      else if (barcode && seenBarcode.has(barcode)) { messages.push('Barcode listed twice in this file — skipped.'); status = 'skip'; }
-      else if (sku && (takenSku.has(sku.toLowerCase()) || seenSku.has(sku.toLowerCase()))) { messages.push(`Code ${sku} is already used — a new code was made.`); sku = ''; }
+      if (takenName.has(norm(name))) { messages.push('Already in your products - skipped.'); status = 'skip'; }
+      else if (seenName.has(norm(name))) { messages.push('Listed twice in this file - only the first is imported.'); status = 'skip'; }
+      else if (barcode && takenBarcode.has(barcode)) { messages.push(`Barcode already used by ${takenBarcode.get(barcode)} - skipped.`); status = 'skip'; }
+      else if (barcode && seenBarcode.has(barcode)) { messages.push('Barcode listed twice in this file - skipped.'); status = 'skip'; }
+      else if (sku && (takenSku.has(sku.toLowerCase()) || seenSku.has(sku.toLowerCase()))) { messages.push(`Code ${sku} is already used - a new code was made.`); sku = ''; }
     }
     if (status === 'ready' && !sku) {
       const base = codeFrom(name); let n = 1; sku = base;

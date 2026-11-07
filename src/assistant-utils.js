@@ -1,5 +1,5 @@
 // Business assistant: plain-language answers from the shop's own numbers (unit tested).
-// No AI service — every answer is worked out here from sales, items, payments, stock and customers.
+// No AI service - every answer is worked out here from sales, items, payments, stock and customers.
 //
 // ctx = { today: 'YYYY-MM-DD' (Lusaka), fmt: n => 'K 1.00', sales, items, payments, products, costs: Map(product_id → unit cost),
 //         customers, batches, branches, multiBranch }
@@ -57,8 +57,8 @@ export function dailyBrief(ctx) {
   if (low.length) lines.push(`${plural(low.length, 'product')} ${low.length === 1 ? 'is' : 'are'} running low.`);
   const soon = (ctx.batches || []).filter(b => num(b.quantity) > 0 && b.expiry_date <= addDays(today, 7));
   const expired = soon.filter(b => b.expiry_date < today);
-  if (expired.length) lines.push(`${plural(expired.length, 'batch', 'batches')} of stock ${expired.length === 1 ? 'has' : 'have'} expired — remove ${expired.length === 1 ? 'it' : 'them'} from the shelf.`);
-  else if (soon.length) lines.push(`${plural(soon.length, 'batch', 'batches')} of stock expire${soon.length === 1 ? 's' : ''} within 7 days — sell ${soon.length === 1 ? 'it' : 'them'} first.`);
+  if (expired.length) lines.push(`${plural(expired.length, 'batch', 'batches')} of stock ${expired.length === 1 ? 'has' : 'have'} expired - remove ${expired.length === 1 ? 'it' : 'them'} from the shelf.`);
+  else if (soon.length) lines.push(`${plural(soon.length, 'batch', 'batches')} of stock expire${soon.length === 1 ? 's' : ''} within 7 days - sell ${soon.length === 1 ? 'it' : 'them'} first.`);
   const owed = (ctx.customers || []).filter(c => num(c.balance) > 0);
   if (owed.length) lines.push(`Customers owe you ${fmt(sum(owed, c => num(c.balance)))} on credit.`);
   return { title: 'Your daily summary', lines };
@@ -123,7 +123,7 @@ const ANSWERS = {
     if (!withCost.length) return { lines: ['Add purchase costs to your products to see profit. Open a product and fill in “Purchase cost”.'], link: { to: '/products', label: 'Add purchase costs' } };
     const top = withCost[0], total = sum(withCost, r => r.profit);
     return { lines: [`In the last 30 days you made about ${ctx.fmt(total)} profit on products with a purchase cost (money in minus what you paid).`, `${top.name} made the most: ${ctx.fmt(top.profit)}.`, ...(note ? [note] : [])],
-      table: { columns: ['Product', 'Sold', 'Profit', 'Margin'], rows: withCost.slice(0, 5).map(r => [r.name, r.quantity, ctx.fmt(r.profit), r.revenue ? Math.round(r.profit / r.revenue * 100) + '%' : '—']) } };
+      table: { columns: ['Product', 'Sold', 'Profit', 'Margin'], rows: withCost.slice(0, 5).map(r => [r.name, r.quantity, ctx.fmt(r.profit), r.revenue ? Math.round(r.profit / r.revenue * 100) + '%' : '-']) } };
   },
   slow(ctx) {
     const sold = new Set(itemsFor(ctx, last30(ctx)).map(i => i.product_id));
@@ -141,7 +141,7 @@ const ANSWERS = {
     if (!rows.length) return { lines: ['Nothing is running low. Every product has more than a week of stock at the current pace.'] };
     const urgent = rows.filter(r => r.days !== null && r.days < 3);
     return { lines: [`${plural(rows.length, 'product')} ${rows.length === 1 ? 'needs' : 'need'} reordering soon${urgent.length ? `; ${urgent.length} will run out within 3 days` : ''}.`],
-      table: { columns: ['Product', 'In stock', 'Sells per day', 'Lasts'], rows: rows.slice(0, 8).map(r => [r.name, r.stock, r.rate ? r.rate.toFixed(1) : '—', r.days === null ? '—' : r.stock <= 0 ? 'Out now' : r.days < 1 ? 'Under a day' : `${Math.floor(r.days)} days`]) },
+      table: { columns: ['Product', 'In stock', 'Sells per day', 'Lasts'], rows: rows.slice(0, 8).map(r => [r.name, r.stock, r.rate ? r.rate.toFixed(1) : '-', r.days === null ? '-' : r.stock <= 0 ? 'Out now' : r.days < 1 ? 'Under a day' : `${Math.floor(r.days)} days`]) },
       link: { to: '/reorder', label: 'Open the reorder list' } };
   },
   busy(ctx) {
@@ -169,7 +169,7 @@ const ANSWERS = {
     if (!owed.length) return { lines: ['Nobody owes you money right now.'] };
     const over = owed.filter(c => num(c.credit_limit) > 0 && num(c.balance) > num(c.credit_limit));
     return { lines: [`${plural(owed.length, 'customer')} owe${owed.length === 1 ? 's' : ''} you ${ctx.fmt(sum(owed, c => num(c.balance)))} in total.`, ...(over.length ? [`${names(over.map(c => c.name))} ${over.length === 1 ? 'is' : 'are'} over their credit limit.`] : [])],
-      table: { columns: ['Customer', 'Phone', 'Owes'], rows: owed.slice(0, 8).map(c => [c.name, c.phone || '—', ctx.fmt(num(c.balance))]) }, link: { to: '/customers', label: 'Open customers' } };
+      table: { columns: ['Customer', 'Phone', 'Owes'], rows: owed.slice(0, 8).map(c => [c.name, c.phone || '-', ctx.fmt(num(c.balance))]) }, link: { to: '/customers', label: 'Open customers' } };
   },
   cashiers(ctx) {
     const m = new Map();

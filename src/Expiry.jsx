@@ -101,7 +101,7 @@ function ExpiryContent({ auth }) {
       </div>
       {error && <div className="notice" role="alert"><AlertCircle size={18} /><span>{error}</span></div>}
       {!batches ? <Skeleton kind="stats" stats={4} rows={5} label="Loading expiry dates…" /> : !batches.length ? (
-        <div className="empty"><CalendarClock size={33} /><h3>No expiry dates yet</h3><p>Add expiry dates when you receive a delivery, add stock, or create a product — or record them for stock already on the shelf.</p></div>
+        <div className="empty"><CalendarClock size={33} /><h3>No expiry dates yet</h3><p>Add expiry dates when you receive a delivery, add stock, or create a product - or record them for stock already on the shelf.</p></div>
       ) : (
         <>
           <div className="stat-grid branch-stats">
@@ -180,7 +180,7 @@ function TagForm({ auth, products, batches, onClose, onDone }) {
         <div className="customer-form">
           {auth.multiBranch && <label>Branch<select value={branch} disabled={Boolean(auth.homeBranch)} onChange={e => { setBranch(e.target.value); setProductId(''); }}>{auth.branches.filter(b => !auth.homeBranch || b.id === auth.homeBranch).map(b => <option key={b.id} value={b.id}>{b.name}</option>)}</select></label>}
           <label>Find product<input value={search} placeholder="Name, SKU or barcode" onChange={e => setSearch(e.target.value)} /></label>
-          <label>Product<select required value={productId} onChange={e => setProductId(e.target.value)}><option value="">Choose…</option>{options.map(p => <option key={p.id} value={p.id}>{p.name} — {undated(p)} without a date</option>)}</select></label>
+          <label>Product<select required value={productId} onChange={e => setProductId(e.target.value)}><option value="">Choose…</option>{options.map(p => <option key={p.id} value={p.id}>{p.name} - {undated(p)} without a date</option>)}</select></label>
           <label>How many have this date{chosen ? ` (up to ${undated(chosen)})` : ''}<input type="number" min="1" step="1" required value={qty} onChange={e => setQty(e.target.value)} /></label>
           <label>Expiry date<input type="date" required value={date} onChange={e => setDate(e.target.value)} /></label>
         </div>

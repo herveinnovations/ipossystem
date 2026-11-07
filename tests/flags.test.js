@@ -36,7 +36,7 @@ test('refunds soon after, long after, and many on one cashier', () => {
   assert.match(f.find(x => x.type === 'late-refund').title, /days after the sale/);
   const many = f.find(x => x.type === 'many-refunds');
   assert.ok(many, 'many refunds flagged');
-  assert.match(many.detail, /K150.00 refunded — 38% of Mary's sales/); // older sale not counted as this period's sales (150/400)
+  assert.match(many.detail, /K150.00 refunded - 38% of Mary's sales/); // older sale not counted as this period's sales (150/400)
 });
 
 test('discounts, low prices and late-night sales', () => {

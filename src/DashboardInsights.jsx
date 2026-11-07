@@ -126,7 +126,7 @@ function HourChart({ rows, money, currency }) {
         const cx = padX + slot * i + slot / 2;
         return (
           <g key={r.hour}>
-            <title>{`${String(r.hour).padStart(2, '0')}:00 — today ${money(r.today, currency)}, usually ${money(r.usual, currency)}`}</title>
+            <title>{`${String(r.hour).padStart(2, '0')}:00 - today ${money(r.today, currency)}, usually ${money(r.usual, currency)}`}</title>
             {r.today > 0 && <rect x={cx - bw / 2} y={y(r.today)} width={bw} height={Math.max(1, y(0) - y(r.today))} rx="2" className={'hbar' + (r.hour === now ? ' hbar-now' : '')} />}
             {r.usual > 0 && <line x1={cx - bw / 2 - 2} x2={cx + bw / 2 + 2} y1={y(r.usual)} y2={y(r.usual)} className="usual-tick" />}
             {i % Math.ceil(rows.length / 6) === 0 && <text x={cx} y={H - 7} textAnchor="middle" className="axis-text">{String(r.hour).padStart(2, '0')}h</text>}
