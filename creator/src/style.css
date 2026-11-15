@@ -61,3 +61,11 @@ main{max-width:1320px;margin:0 auto;padding:22px}
 .claims{list-style:none;margin:0;padding:0 16px}.claims li{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.claims small{display:block;color:var(--muted);margin-top:3px}
 .btn.sm{padding:6px 10px;font-size:12.5px}.btn.primary.sm{padding:7px 12px}.plan-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.plan-actions select{padding:5px 6px;border:1px solid var(--line);border-radius:7px;font:inherit;font-size:12.5px}
 .badge.bad{background:#fbece9;color:var(--bad)}.pad-x{margin:0 16px}
+/* No border lines anywhere: soft fills, gentle shadows and spacing separate things instead */
+*,*::before,*::after{border-color:transparent!important}
+input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea{background-color:#eef3f0!important}
+input:not([type=checkbox]):not([type=radio]):focus,select:focus,textarea:focus{background-color:#fff!important;box-shadow:0 0 0 3px #24694f38!important;outline:none}
+.btn:not(.primary):not(.link){background:#eef3f0}.btn:not(.primary):not(.link):hover{background:#e3ece6}
+.card,.kpi,.auth-card,.map-tip{box-shadow:0 1px 2px #1c2b2408,0 6px 18px #1c2b240d}
+table tbody tr:nth-child(even)>td{background:#f7faf8}
+.top select,.top input{background-color:#ffffff1f!important;color:#fff}.top select option{color:#17251e}.top .btn:not(.primary):not(.link){background:#ffffff1f}
