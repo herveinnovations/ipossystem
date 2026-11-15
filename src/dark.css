@@ -560,6 +560,20 @@
 :root[data-theme="dark"] .sk-check{border-top:1px solid #363d33}
 :root[data-theme="dark"] .store-illustration.checkout-art{background:none;border:0}
 :root[data-theme="dark"] .checkout-art .illustration-chip{color:#afdeca}
+:root[data-theme="dark"] *,:root[data-theme="dark"] *::before,:root[data-theme="dark"] *::after{border-color:transparent !important}
+:root[data-theme="dark"] input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),:root[data-theme="dark"] select,:root[data-theme="dark"] textarea{background-color:#1c221f !important}
+:root[data-theme="dark"] input:not([type=checkbox]):not([type=radio]):focus,:root[data-theme="dark"] select:focus,:root[data-theme="dark"] textarea:focus{background-color:#232c28 !important;box-shadow:0 0 0 3px #24694f38 !important;outline:none}
+:root[data-theme="dark"] .secondary,:root[data-theme="dark"] .icon-button{background:#1c221f !important}
+:root[data-theme="dark"] .secondary:hover,:root[data-theme="dark"] .icon-button:hover{background:#202823 !important}
+:root[data-theme="dark"] .management-panel,:root[data-theme="dark"] .stat-card,:root[data-theme="dark"] .metric-card,:root[data-theme="dark"] .kpi-card,:root[data-theme="dark"] .panel,:root[data-theme="dark"] .card,:root[data-theme="dark"] .auth-card,:root[data-theme="dark"] .modal{box-shadow:0 1px 2px #1c2b2408,0 6px 18px #1c2b240d}
+:root[data-theme="dark"] table tbody tr:nth-child(even)>td{background:#181e1a}
+:root[data-theme="dark"] .tabs button.active{background:#1c2821}
+:root[data-theme="dark"] .flag-card.high{background:#281410}
+:root[data-theme="dark"] .flag-card.medium{background:#2b2310}
+:root[data-theme="dark"] .transfer-card.status-received{background:#19231d}
+:root[data-theme="dark"] .setup-mark:not([class*=done]){background:#1f2521}
+:root[data-theme="dark"] .net-chip,:root[data-theme="dark"] .offer-toggle:not(.is-on),:root[data-theme="dark"] .branch-switch,:root[data-theme="dark"] .branch-chip{background:#1c221f !important}
+:root[data-theme="dark"] .branch-switch select{background:transparent !important}
 :root[data-theme="dark"] .bar-prev,:root[data-theme="dark"] .lg-prev{fill:#2b3832;background:#2b3832}
 :root[data-theme="dark"] .hbar{fill:#3d7a5f}:root[data-theme="dark"] .hbar-now{fill:#5fcf9c}
 :root[data-theme="dark"] .donut-track{stroke:#26312c}:root[data-theme="dark"] .spark-area{fill:#5fcf9c1f}:root[data-theme="dark"] .spark-line{stroke:#5fcf9c}:root[data-theme="dark"] .spark-dot{fill:#5fcf9c}

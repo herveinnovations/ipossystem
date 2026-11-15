@@ -612,3 +612,14 @@ label.has-scan input{padding-right:48px}
 .import-modal{min-width:0;max-width:100%}.import-modal>*{min-width:0}.import-modal .table-scroll{max-width:100%;overflow:auto}.import-actions,.import-modal .modal-actions{flex-wrap:wrap}
 @media(max-width:520px){.topbar{gap:8px;padding:0 12px}.breadcrumb{min-width:0;flex:1 1 0;overflow:hidden;white-space:nowrap}.topbar-user{min-width:0;flex-shrink:0}.topbar-user .avatar{display:none}}
 @media(max-width:520px){.import-modal .modal-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}.import-modal .modal-actions>button{width:100%;justify-content:center;padding-left:8px;padding-right:8px}.import-modal .modal-actions>button.primary{grid-column:1/-1;order:-1}}
+/* No border lines anywhere: soft fills, gentle shadows and spacing separate things instead */
+*,*::before,*::after{border-color:transparent!important}
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),select,textarea{background-color:#eef3f0!important}
+input:not([type=checkbox]):not([type=radio]):focus,select:focus,textarea:focus{background-color:#fff!important;box-shadow:0 0 0 3px #24694f38!important;outline:none}
+.secondary,.icon-button{background:#eef3f0!important}.secondary:hover,.icon-button:hover{background:#e3ece6!important}
+.management-panel,.stat-card,.metric-card,.kpi-card,.panel,.card,.auth-card,.modal{box-shadow:0 1px 2px #1c2b2408,0 6px 18px #1c2b240d}
+table tbody tr:nth-child(even)>td{background:#f7faf8}
+.tabs button.active{background:#e6f2eb;border-radius:8px}
+.flag-card.high{background:#fdf1ef}.flag-card.medium{background:#fdf7ea}
+.transfer-card.status-received{background:#f0f7f3}
+.setup-mark:not([class*=done]){background:#e8efea}.net-chip,.offer-toggle:not(.is-on),.branch-switch,.branch-chip{background:#eef3f0!important}.branch-switch select{background:transparent!important}
