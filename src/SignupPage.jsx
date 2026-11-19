@@ -10,8 +10,7 @@ import { passwordProblems, MIN_PASSWORD } from './password-utils';
 import { SITE } from './site-config';
 import { supabase } from './supabase';
 
-// The sign-up page. Three designs are on this preview so they can be compared:
-// /signup?design=a (split, like Sign in), ?design=b (card on a green band), ?design=c (one step at a time).
+// The sign-up page: green panel on the left (like Sign in), grouped form on the right.
 const GROUPS = [
   ['you', 'About you', User, [['full_name', 'Your full name', 'text'], ['email', 'Email address', 'email']]],
   ['shop', 'Your business', Store, [['company_name', 'Company / Store name', 'text'], ['registration_number', 'Business registration number', 'text'], ['tpin', 'TPIN', 'text'], ['address', 'Physical address', 'text'], ['phone', 'Phone number', 'tel'], ['currency', 'Currency', 'select'], ['logo_url', 'Company logo URL (optional)', 'url']]],
@@ -20,9 +19,8 @@ const GROUPS = [
 const PERKS = [[BadgeCheck, `${SITE.price.trialDays}-day free trial`], [Smartphone, 'No card needed'], [WifiOff, 'Works offline']];
 
 export function Signup() {
-  const design = (new URLSearchParams(window.location.search).get('design') || 'a').toLowerCase();
   const [form, setForm] = useState({ full_name: '', company_name: '', registration_number: '', tpin: '', address: '', phone: '', email: '', password: '', confirm: '', currency: 'ZMW', logo_url: '' });
-  const [agree, setAgree] = useState(false), [busy, setBusy] = useState(false), [error, setError] = useState(''), [done, setDone] = useState(false), [step, setStep] = useState(0);
+  const [agree, setAgree] = useState(false), [busy, setBusy] = useState(false), [error, setError] = useState(''), [done, setDone] = useState(false);
 
   async function submit(e) {
     e.preventDefault(); setError(''); setBusy(true);
@@ -64,32 +62,9 @@ export function Signup() {
   const back = <Link className="reset-back" to="/login"><ArrowLeft size={15} /> Already have an account? Sign in</Link>;
   const heading = <div className="su-head"><h1>Register your business</h1><p>Your own shop workspace, ready in about five minutes.</p></div>;
 
-  // C: one step at a time
-  function next(e) {
-    e.preventDefault();
-    const box = e.currentTarget.closest('form').querySelector('.su-step.on');
-    if (box && [...box.querySelectorAll('input,select')].some(el => !el.reportValidity())) return;
-    setStep(s => Math.min(2, s + 1));
-  }
-  const stepsForm = (
-    <form onSubmit={submit} className="su-form su-steps" noValidate={false}>
-      <div className="su-progress">{GROUPS.map(([id, title, Icon], i) => <span key={id} className={i <= step ? 'on' : ''}><b>{i < step ? <Check size={15} /> : i + 1}</b>{title}</span>)}</div>
-      {GROUPS.map(([id, title, Icon, fields], i) => (
-        <div key={id} className={'su-step' + (i === step ? ' on' : '')} hidden={i !== step}>
-          <h2><Icon size={20} /> {title}</h2>
-          <div className="su-fields">{fields.map(field)}</div>
-          {i === 2 && terms}
-        </div>
-      ))}
-      <div className="su-step-nav">
-        {step > 0 && <button type="button" className="secondary" onClick={() => setStep(step - 1)}><ArrowLeft size={17} /> Back</button>}
-        {step < 2 ? <button type="button" className="primary su-submit" onClick={next}>Next <ArrowRight size={18} /></button> : submitBtn}
-      </div>
-    </form>
-  );
   const fullForm = <form onSubmit={submit} className="su-form">{GROUPS.map(group)}{terms}{submitBtn}</form>;
 
-  if (design === 'a') return (
+  return (
     <div className="su-split">
       <aside className="su-story">
         <Brand />
@@ -114,18 +89,4 @@ export function Signup() {
     </div>
   );
 
-  return (
-    <div className={'reset-page su-band su-' + design}>
-      <section className="reset-card signup-card su-card">
-        <BackHome className="card-back" />
-        <Brand className="auth-brand" />
-        {heading}
-        {perks}
-        {error && <div className="notice" role="alert">{error}</div>}
-        {done ? doneBox : design === 'c' ? stepsForm : fullForm}
-        {note}{back}
-      </section>
-      {busy && <AuthLoader label="Creating your account…" />}
-    </div>
-  );
 }
