@@ -286,3 +286,13 @@
   .lp-final{padding:0 0 100px}.lp-final-box{grid-template-columns:1fr;padding:36px 24px;text-align:left}.lp-final h2{font-size:28px;letter-spacing:-.84px}
   .lp-final p{font-size:17px}.lp-final-qr{display:none}
 }
+
+/* Layout C: short */
+.lp-hero-qr{display:flex;align-items:center;gap:14px;margin-top:26px;background:#ffffff14;border-radius:16px;padding:10px 16px 10px 10px;max-width:390px}
+.lp-hero-qr .lp-qr-code{width:96px;height:96px;margin:0;background:#fff;border-radius:10px;padding:5px;flex-shrink:0}
+.lp-hero-qr span{font-size:14px;color:#c8e3d6;line-height:1.4}.lp-hero-qr b{display:block;color:#fff;font-size:16px}
+.lp-benefits{padding:80px 0}
+.lp-benefits article{background:var(--soft);border-radius:20px;padding:28px}
+.lp-benefits h3{font-size:32px;font-weight:600;line-height:1.2;letter-spacing:-.5px;margin:18px 0 8px}.lp-benefits p{margin:0;color:var(--muted);font-size:17px}
+.lp-benefits .lp-i{background:#fff}
+@media(max-width:760px){.lp-hero-qr{display:none}.lp-benefits{padding:56px 0}.lp-benefits h3{font-size:22px}}

@@ -11,6 +11,12 @@ import './landing.css';
 
 const Icon = ({ name }) => <span className="lp-svg" dangerouslySetInnerHTML={{ __html: ICONS[name] }} />;
 
+const BENEFITS = [
+  ['barcode', 'Sell faster', 'Scan with the phone camera, take any payment and send the receipt on WhatsApp.'],
+  ['package', 'Lose less', 'Know what’s running low and who owes you, so stock and cash never go missing.'],
+  ['chart-line-up', 'Know your profit', 'Profit & Loss, Balance Sheet and a cashbook that fill themselves in as you sell.'],
+];
+
 const TRUST = [
   [WifiOff, 'Works offline'],
   [Smartphone, 'MTN & Airtel money'],
@@ -115,18 +121,21 @@ export default function Landing({ auth }) {
       </header>
 
       <main>
-        {/* 1. Hero: photo, headline, one big button */}
-        <section className="lp-hero lp-hero-a">
+        {/* 1. Hero with the install QR code */}
+        <section className="lp-hero lp-hero-a lp-hero-c">
           <div className="lp-wrap lp-hero-grid">
             <div className="lp-hero-text">
               <span className="lp-eyebrow">Point of sale for Zambian shops</span>
               <h1>Sell faster.<br />Lose less.<br /><em>Know your profit.</em></h1>
-              <p>iPOS runs your till, stock, staff and accounts from one simple app, on the phone or computer you already have.</p>
+              <p>Till, stock and accounts in one simple app. Free for {p.trialDays} days.</p>
               <div className="lp-cta-row">
-                <Link className="lp-btn lp-orange lp-big-btn" to="/signup">Start your {p.trialDays}-day free trial <ArrowRight size={18} /></Link>
-                <a className="lp-btn lp-outline" href="#how">See how it works</a>
+                <Link className="lp-btn lp-orange lp-big-btn" to="/signup">Start free trial <ArrowRight size={18} /></Link>
+                <Link className="lp-btn lp-outline" to="/install"><Download size={18} /> Get the app</Link>
               </div>
-              <small className="lp-hero-note">No card needed · Cancel any time</small>
+              <div className="lp-hero-qr">
+                <Link to="/install" className="lp-qr-code"><img src="/install-qr.svg" alt="QR code to install the iPOS app" width="96" height="96" /><img className="lp-qr-logo" src="/icon-192.png" alt="" width="26" height="26" /></Link>
+                <span><b>Scan to install</b>Android, iPhone and computer. No app store needed.</span>
+              </div>
             </div>
             <picture className="lp-hero-photo">
               <source media="(max-width: 760px)" srcSet="/landing/hero-shop-small.webp" />
@@ -135,109 +144,27 @@ export default function Landing({ auth }) {
           </div>
         </section>
 
-        {/* 2. Trust strip */}
-        <div className="lp-trust">
-          <div className="lp-wrap lp-trust-row">
-            {TRUST.map(([I, text]) => <span key={text}><I size={18} /> {text}</span>)}
-          </div>
-        </div>
-
-        {/* 3. Three easy steps */}
-        <section className="lp-steps" id="how">
-          <div className="lp-wrap">
-            <span className="lp-eyebrow dark">How it works</span>
-            <h2 className="lp-h2">Get your shop running in 3 easy steps</h2>
-            <div className="lp-grid3">
-              {STEPS.map(([img, title, text], i) => (
-                <div key={title}>
-                  <div className="lp-cwrap"><i>{i + 1}</i><div className="lp-circle"><img src={img} alt="" width="540" height="1169" loading="lazy" /></div></div>
-                  <h3>{title}</h3><p>{text}</p>
-                </div>
-              ))}
-            </div>
+        {/* 2. Three big benefits */}
+        <section className="lp-benefits" id="features">
+          <div className="lp-wrap lp-grid3">
+            {BENEFITS.map(([icon, title, text]) => (
+              <article key={title}><span className="lp-i"><Icon name={icon} /></span><h3>{title}</h3><p>{text}</p></article>
+            ))}
           </div>
         </section>
 
-        {/* 4-7. Feature rows, picture and words swap sides */}
-        <div id="features" className="lp-features">
-          <section className="lp-feat">
-            <div className="lp-wrap lp-feat-grid">
-              <div className="lp-feat-art"><CheckoutIllustration /></div>
-              <div>
-                <span className="lp-eyebrow dark">Sell and get paid</span>
-                <h2 className="lp-h2 left">Cash, mobile money or card. One till.</h2>
-                <ul className="lp-checks">
-                  <li><Check size={18} /> <span><b>Scan, tap or search</b> and the item is on the bill in a second</span></li>
-                  <li><Check size={18} /> <span><b>Cash</b> with the change worked out for you</span></li>
-                  <li><Check size={18} /> <span><b>MTN and Airtel money</b> recorded on every sale, so the day adds up</span></li>
-                  <li><Check size={18} /> <span><b>Card</b> on your own card machine</span></li>
-                  <li><Check size={18} /> <span><b>Credit for regulars</b>, so you always know who owes what</span></li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          <section className="lp-feat lp-soft">
-            <div className="lp-wrap lp-feat-grid flip">
-              <div className="lp-feat-art lp-phone-stage">
-                <span className="lp-tag">Running out · 10 items</span>
-                <div className="lp-phone"><img src="/landing/phone-dashboard.webp" alt="The iPOS dashboard on a phone showing today’s sales and 10 items running out" width="540" height="1169" loading="lazy" /></div>
-              </div>
-              <div>
-                <span className="lp-eyebrow dark">Stock</span>
-                <h2 className="lp-h2 left">Never run out of what sells</h2>
-                <ul className="lp-checks">
-                  <li><Check size={18} /> <span><b>Know what’s running low</b> and how many days you have left</span></li>
-                  <li><Check size={18} /> <span><b>A reorder list for each supplier</b>, ready in one tap</span></li>
-                  <li><Check size={18} /> <span><b>Stock transfers</b> between branches, all counted</span></li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          <section className="lp-feat">
-            <div className="lp-wrap lp-feat-grid">
-              <div className="lp-feat-art lp-screen"><img src="/landing/05-profit-loss.webp" alt="The iPOS Profit and Loss statement for this quarter" width="1440" height="900" loading="lazy" /></div>
-              <div>
-                <span className="lp-eyebrow dark">Profit and accounts</span>
-                <h2 className="lp-h2 left">Your books, done for you</h2>
-                <ul className="lp-checks">
-                  <li><Check size={18} /> <span><b>Profit &amp; Loss and Balance Sheet</b> updated with every sale</span></li>
-                  <li><Check size={18} /> <span><b>A cashbook</b> that shows where every kwacha went</span></li>
-                  <li><Check size={18} /> <span><b>Download to Excel</b> any time for your accountant</span></li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          <section className="lp-feat lp-soft">
-            <div className="lp-wrap lp-feat-grid flip">
-              <figure className="lp-feat-art lp-queue-art">
-                <img src="/landing/queue-illustration.webp" alt="Customers with shopping bags queue at a shop counter while the cashier serves them" width="1200" height="770" loading="lazy" />
-                <figcaption>Illustration: Freepik</figcaption>
-              </figure>
-              <div>
-                <span className="lp-eyebrow dark">Busy days made easy</span>
-                <h2 className="lp-h2 left">Shorter queues, even offline</h2>
-                <ul className="lp-checks">
-                  <li><Check size={18} /> <span><b>Make a sale in seconds</b>: scan with the phone camera, tap Complete sale</span></li>
-                  <li><Check size={18} /> <span><b>Several tills at once</b>, each cashier on their own phone or computer</span></li>
-                  <li><Check size={18} /> <span><b>Receipts by WhatsApp</b> or printed, so customers are on their way fast</span></li>
-                  <li><Check size={18} /> <span><b>Keeps selling when the internet goes off</b>, and catches up when it’s back</span></li>
-                </ul>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* 8. Every kind of shop */}
-        <section className="lp-types">
-          <div className="lp-wrap">
-            <h2 className="lp-h2">Made for every kind of shop</h2>
-            <div className="lp-grid3">
-              {SHOPS.map(([icon, title, text]) => (
-                <article className="lp-type" key={title}><div><h3>{title}</h3><p>{text}</p><Link className="lp-btn lp-primary lp-small" to="/signup">Start free</Link></div><span className="lp-big"><Icon name={icon} /></span></article>
-              ))}
+        {/* 3. One picture section */}
+        <section className="lp-feat lp-soft" id="how">
+          <div className="lp-wrap lp-feat-grid">
+            <div className="lp-feat-art"><CheckoutIllustration /></div>
+            <div>
+              <span className="lp-eyebrow dark">Every way your customers pay</span>
+              <h2 className="lp-h2 left">Cash, mobile money or card. One till.</h2>
+              <ul className="lp-checks">
+                <li><Check size={18} /> <span><b>Register</b> your shop in about five minutes</span></li>
+                <li><Check size={18} /> <span><b>Import your products</b> from Excel and invite your cashiers</span></li>
+                <li><Check size={18} /> <span><b>Sell</b> with cash, MTN, Airtel, card or credit, even offline</span></li>
+              </ul>
             </div>
           </div>
         </section>
@@ -264,7 +191,7 @@ export default function Landing({ auth }) {
         <section className="lp-faq-sec" id="faq">
           <div className="lp-wrap lp-narrow">
             <h2 className="lp-h2">Questions</h2>
-            <div className="lp-faq">{FAQ.map(([q, a], i) => (
+            <div className="lp-faq">{FAQ.slice(0, 4).map(([q, a], i) => (
               <div key={q} className={'lp-q' + (open === i ? ' open' : '')}>
                 <button aria-expanded={open === i} onClick={() => setOpen(open === i ? -1 : i)}>{q}<ChevronDown size={18} /></button>
                 {open === i && <p>{a}</p>}
