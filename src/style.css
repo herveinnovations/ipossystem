@@ -623,3 +623,68 @@ table tbody tr:nth-child(even)>td{background:#f7faf8}
 .flag-card.high{background:#fdf1ef}.flag-card.medium{background:#fdf7ea}
 .transfer-card.status-received{background:#f0f7f3}
 .setup-mark:not([class*=done]){background:#e8efea}.net-chip,.offer-toggle:not(.is-on),.branch-switch,.branch-chip{background:#eef3f0!important}.branch-switch select{background:transparent!important}
+
+/* ===== Layout A look across the app (matches the front page) =====
+   Deep green with the soft tile pattern, gold highlights, orange main action, big rounded cards. */
+:root{--a-deep:#0f3a2e;--a-g2:#1f6a4d;--a-gold:#f2c48d;--a-orange:#e09a4c;--a-mint:#9fd2b9;--a-soft:#f4f8f5;
+  --a-pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.06' stroke-width='2'%3E%3Crect x='10' y='10' width='100' height='100' rx='26'/%3E%3Crect x='30' y='30' width='60' height='60' rx='16'/%3E%3Cpath d='M60 0v10M60 110v10M0 60h10M110 60h10'/%3E%3C/g%3E%3C/svg%3E")}
+
+/* sign in */
+.login-story{background:var(--a-deep) var(--a-pattern)!important;background-size:120px!important}
+.login-story .eyebrow{color:var(--a-mint)}
+.story-main h1{color:#fff}
+.story-features{background:var(--a-gold);color:var(--a-deep)!important;border-radius:14px;padding:12px 16px;font-weight:650;font-size:12.5px!important;justify-content:space-between}
+.story-features svg{color:var(--a-deep)}
+.login-side{background:#fff}
+.login-form h2{font-size:36px;letter-spacing:-1.1px}
+
+/* sign up, reset password, email confirm: green band behind a big white card */
+.reset-page{background:linear-gradient(180deg,transparent 0 340px,var(--a-soft) 340px),var(--a-deep) var(--a-pattern)!important;background-size:auto,120px!important;align-items:start;padding-top:48px}
+.reset-card{border-radius:24px!important;box-shadow:0 30px 70px #0f3a2e33!important}
+
+/* sidebar: deep green like the hero */
+.sidebar{background:var(--a-deep) var(--a-pattern)!important;background-size:120px!important;color:#dff1e8}
+.sidebar .brand,.sidebar-app-brand{color:#fff!important}
+.store-identity,.store-identity strong{color:#fff}.store-identity>svg{color:var(--a-gold)!important}
+.store-registration{color:var(--a-mint)!important}
+.sidebar-person strong{color:#fff}.sidebar-person small{color:var(--a-mint)!important}
+.sidebar-person .avatar{background:var(--a-gold);color:var(--a-deep)}
+.sidebar-tools,.sidebar-tools a,.sidebar-tools button{color:#dff1e8!important}
+.sidebar-tools a,.sidebar-tools button,.sidebar-tools .language-chip{background:#ffffff14!important}
+.sidebar-tools select{background:transparent!important;color:#dff1e8!important}.sidebar-tools select option{color:#17251e}
+.sidebar .workspace-tag{color:var(--a-mint)!important}
+.sidebar nav a{color:#c8e3d6!important;border-radius:10px}
+.sidebar nav a:hover{background:#ffffff12!important;color:#fff!important}
+.sidebar nav a.active{background:var(--a-gold)!important;color:var(--a-deep)!important;font-weight:650}
+.nav-unavailable{color:#7fa595!important}
+.sidebar-bottom>button,.sidebar-bottom .reset-unavailable{color:#c8e3d6!important}
+
+/* page header: the green hero band */
+.page-heading{background:var(--a-deep) var(--a-pattern);background-size:120px;color:#fff;border-radius:24px;padding:30px 34px;margin-bottom:26px;box-shadow:0 14px 34px #0f3a2e1f}
+.page-heading h1{color:#fff;font-size:34px;letter-spacing:-1px;font-weight:600}
+.page-heading p{color:#c8e3d6!important;font-size:14px}
+.page-heading .eyebrow{color:var(--a-mint)!important}
+.page-heading .primary{background:var(--a-orange)!important;color:#1e1a10!important;border-radius:10px}
+.page-heading .primary:hover{background:#d48b3b!important}
+.page-heading .secondary,.page-heading .icon-button{background:#ffffff1f!important;color:#fff!important;border-radius:10px}
+.page-heading .secondary:hover,.page-heading .icon-button:hover{background:#ffffff2e!important}
+.page-heading label{color:#c8e3d6}
+.page-heading input,.page-heading select{background-color:#ffffff1f!important;color:#fff!important}
+.page-heading select option{color:#17251e}
+.page-heading .badge,.page-heading .access-pill{background:var(--a-gold)!important;color:var(--a-deep)!important}
+.page-heading a:not(.primary):not(.secondary){color:var(--a-gold)}
+.page-heading small{color:var(--a-mint)}
+
+/* cards, panels, buttons: rounder, like the front page */
+.primary,.secondary{border-radius:10px}
+.stat-card,.management-panel,.table-panel,.cart-panel,.profile-card,.panel,.card,.metric-card,.kpi-card,.product-card,.setup-guide,.dashboard-banner{border-radius:18px!important}
+.stat-card strong{color:var(--a-deep)}
+.modal{border-radius:22px}
+.topbar{background:#fff}
+
+@media(max-width:620px){
+  .page-heading{padding:22px 20px;border-radius:20px}
+  .page-heading h1{font-size:26px}
+  .reset-page{padding:20px 12px;background:linear-gradient(180deg,transparent 0 200px,var(--a-soft) 200px),var(--a-deep) var(--a-pattern)!important;background-size:auto,120px!important}
+  .story-features{display:none}
+}

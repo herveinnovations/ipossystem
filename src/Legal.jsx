@@ -16,10 +16,13 @@ function Shell({ title, children }) {
         <Link to="/" className="lp-brand" aria-label="iPOS home"><img src="/ipos-logo.png?v=23670b6cd135" alt="" /><Wordmark /></Link>
         <nav className="lp-legal-links"><Link to="/terms">Terms</Link><Link to="/privacy">Privacy</Link><Link to="/login" className="lp-signin">Sign in</Link></nav>
       </div></header>
-      <main className="lp-wrap lp-narrow lp-doc">
+      <section className="lp-page-hero"><div className="lp-wrap lp-narrow">
         <Link to="/" className="lp-back"><ArrowLeft size={16} /> Back to iPOS</Link>
+        <span className="lp-eyebrow">Legal</span>
         <h1>{title}</h1>
         <p className="lp-updated">Last updated {updated}</p>
+      </div></section>
+      <main className="lp-wrap lp-narrow lp-doc">
         {children}
       </main>
       <footer className="lp-foot"><div className="lp-wrap lp-foot-row"><small>© {new Date().getFullYear()} {SITE.legalName || 'iPOS'} · Lusaka, Zambia</small><nav><Link to="/terms">Terms of Service</Link><Link to="/privacy">Privacy Policy</Link></nav></div></footer>

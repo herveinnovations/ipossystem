@@ -286,3 +286,24 @@
   .lp-final{padding:0 0 100px}.lp-final-box{grid-template-columns:1fr;padding:36px 24px;text-align:left}.lp-final h2{font-size:28px;letter-spacing:-.84px}
   .lp-final p{font-size:17px}.lp-final-qr{display:none}
 }
+
+/* Layout A look for the other public pages */
+.lp-legal-links{display:flex;align-items:center;gap:24px;font-size:15px;color:#33463c}
+.lp-page-hero{background:var(--deep) var(--pattern);background-size:120px;color:#fff;padding:44px 0 56px}
+.lp-page-hero .lp-back{display:inline-flex;align-items:center;gap:6px;color:#9fd2b9;font-size:14px;font-weight:600;margin-bottom:26px}
+.lp-page-hero .lp-eyebrow{display:block}
+.lp-page-hero h1{font-size:56px;font-weight:600;line-height:1.1;letter-spacing:-1.7px;margin:12px 0 10px}
+.lp-updated{color:#c8e3d6;margin:0;font-size:15px}
+.lp-doc{padding-top:48px;padding-bottom:80px;font-size:17px;color:#33463c}
+.lp-doc h2{font-size:28px;font-weight:650;letter-spacing:-.6px;line-height:1.2;color:var(--ink);margin:44px 0 12px}
+.lp-doc p,.lp-doc li{line-height:1.7}.lp-doc ul{padding-left:22px}.lp-doc a{color:var(--g2);font-weight:600}
+.lp-doc>p:first-child{background:var(--soft);border-radius:18px;padding:22px 24px;font-size:18px}
+.lp-foot-row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.lp-foot-row nav{display:flex;gap:20px}.lp-foot-row small{color:#c8e3d6;font-size:14px}
+/* install page: green band behind the card */
+.in-page{background:linear-gradient(180deg,#0f3a2e00 0 0),var(--soft)}
+.in-page:before{content:"";position:absolute;left:0;right:0;top:0;height:330px;background:var(--deep) var(--pattern);background-size:120px;z-index:0}
+.in-page{position:relative}.in-top,.in-card{position:relative;z-index:1}
+.in-top .lp-brand{color:#fff}.in-top .back-home{color:#9fd2b9!important}
+.in-card{box-shadow:0 30px 70px #0f3a2e33}
+@media(max-width:760px){.lp-page-hero{padding:30px 0 40px}.lp-page-hero h1{font-size:34px;letter-spacing:-1px}.lp-doc h2{font-size:22px}.lp-legal-links{gap:14px;font-size:14px}}
+@media(max-width:560px){.in-page:before{height:120px}}
