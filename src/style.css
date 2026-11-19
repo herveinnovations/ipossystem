@@ -688,3 +688,28 @@ table tbody tr:nth-child(even)>td{background:#f7faf8}
   .reset-page{padding:20px 12px;background:linear-gradient(180deg,transparent 0 200px,var(--a-soft) 200px),var(--a-deep) var(--a-pattern)!important;background-size:auto,120px!important}
   .story-features{display:none}
 }
+
+/* Layout A, calmer inside the app: fainter pattern, slimmer banners, one orange button per page */
+:root{--a-pattern-soft:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.028' stroke-width='2'%3E%3Crect x='10' y='10' width='100' height='100' rx='26'/%3E%3Crect x='30' y='30' width='60' height='60' rx='16'/%3E%3Cpath d='M60 0v10M60 110v10M0 60h10M110 60h10'/%3E%3C/g%3E%3C/svg%3E")}
+.sidebar{background:var(--a-deep) var(--a-pattern-soft)!important;background-size:120px!important}
+.page-heading{background:var(--a-deep) var(--a-pattern-soft);background-size:120px;padding:22px 28px;border-radius:20px;margin-bottom:22px;box-shadow:0 8px 22px #0f3a2e1a}
+.page-heading h1{font-size:28px;margin:6px 0 4px}
+.page-heading p{font-size:13px}
+.page-heading .primary~.primary{background:#ffffff1f!important;color:#fff!important}
+/* the till: a thin bar so products show straight away */
+.page-content:has(.pos-layout)>.page-heading,.page-content:has(.pos-layout) .page-heading{padding:14px 22px;border-radius:16px;margin-bottom:16px}
+.page-content:has(.pos-layout) .page-heading h1{font-size:22px;margin:0}
+.page-content:has(.pos-layout) .page-heading p,.page-content:has(.pos-layout) .page-heading .eyebrow{display:none}
+@media(max-width:620px){
+  .page-heading{padding:16px 16px 14px;border-radius:16px;gap:10px;margin-bottom:16px}
+  .page-heading h1{font-size:22px;margin:2px 0}
+  .page-heading p{font-size:12.5px;line-height:1.45}
+  .page-heading .eyebrow{display:none}
+  .page-heading .heading-actions{display:flex;flex-wrap:wrap;gap:6px}
+  .page-heading .heading-actions>*{flex:0 0 auto;width:auto}
+  .page-heading .primary,.page-heading .secondary{padding:9px 12px;font-size:13px;gap:6px}
+  .page-heading .primary svg,.page-heading .secondary svg{width:16px;height:16px}
+  .page-content:has(.pos-layout) .page-heading{flex-direction:row;align-items:center;padding:10px 14px}
+  .page-content:has(.pos-layout) .page-heading h1{font-size:19px}
+  .page-content:has(.pos-layout) .page-heading .heading-actions{width:auto}
+}
