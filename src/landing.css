@@ -286,3 +286,27 @@
   .lp-final{padding:0 0 100px}.lp-final-box{grid-template-columns:1fr;padding:36px 24px;text-align:left}.lp-final h2{font-size:28px;letter-spacing:-.84px}
   .lp-final p{font-size:17px}.lp-final-qr{display:none}
 }
+
+/* Layout B: story (problem, answer, feature cards) */
+.lp-problem{background:var(--gold);padding:70px 0;text-align:center}
+.lp-problem .lp-eyebrow{color:var(--deep)}
+.lp-problem h2{font-size:40px;font-weight:650;line-height:1.15;letter-spacing:-1.2px;color:var(--deep);margin:12px 0 26px}
+.lp-pains{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.lp-pains span{background:#ffffff8c;border-radius:30px;padding:9px 16px;font-weight:600;font-size:15px;color:#5a3a12}
+.lp-answer{padding:84px 0}
+.lp-lead{font-size:19px;color:var(--muted);margin:0 0 26px}
+.lp-answer-icons{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.lp-answer-icons>span{display:flex;flex-direction:column;align-items:center;gap:8px;font-weight:650;background:var(--soft);border-radius:16px;padding:16px 8px}
+.lp-answer-icons .lp-i{background:#fff;color:var(--g2)}
+.lp-cards6{background:var(--soft);padding:80px 0}
+.lp-fcard{background:#fff;border-radius:20px;padding:18px 18px 22px}
+.lp-fcard-art{height:190px;border-radius:14px;background:#eef6f1;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.lp-fcard-art img{width:100%;height:100%;object-fit:cover;object-position:top left}
+.lp-fcard-art img[src*=phone]{width:auto;height:115%;object-fit:contain;margin-top:30%;border-radius:18px;box-shadow:0 10px 24px #0003}
+.lp-fcard-art .lp-illus{width:auto;height:100%}
+.lp-fcard h3{font-size:24px;font-weight:600;line-height:1.2;letter-spacing:-.5px;margin:0 0 6px}.lp-fcard p{margin:0;color:var(--muted);font-size:16px}
+@media(max-width:760px){
+  .lp-problem{padding:50px 0}.lp-problem h2{font-size:28px;letter-spacing:-.84px}
+  .lp-answer{padding:56px 0}.lp-answer-icons{grid-template-columns:repeat(2,1fr)}
+  .lp-cards6{padding:56px 0}.lp-fcard h3{font-size:20px}
+}
