@@ -19,9 +19,9 @@ const TRUST = [
 ];
 
 const STEPS = [
-  ['/landing/phone-signup.webp', 'Register your business', 'Your shop name, TPIN and phone. Confirm your email and your workspace is ready.'],
-  ['/landing/phone-staff.webp', 'Add products and staff', 'Import your stock list from Excel and invite your cashiers and supervisors.'],
-  ['/landing/phone-pay.webp', 'Start selling', 'Scan, take payment and watch your profit grow on the dashboard.'],
+  ['/landing/phone-signup.webp?v=2', 'Register your business', 'Your shop name, TPIN and phone. Confirm your email and your workspace is ready.'],
+  ['/landing/phone-staff.webp?v=2', 'Add products and staff', 'Import your stock list from Excel and invite your cashiers and supervisors.'],
+  ['/landing/phone-pay.webp?v=2', 'Start selling', 'Scan, take payment and watch your profit grow on the dashboard.'],
 ];
 
 const SHOPS = [
@@ -181,7 +181,7 @@ export default function Landing({ auth }) {
             <div className="lp-wrap lp-feat-grid flip">
               <div className="lp-feat-art lp-phone-stage">
                 <span className="lp-tag">Running out · 10 items</span>
-                <div className="lp-phone"><img src="/landing/phone-dashboard.webp" alt="The iPOS dashboard on a phone showing today’s sales and 10 items running out" width="540" height="1169" loading="lazy" /></div>
+                <div className="lp-phone"><img src="/landing/phone-dashboard.webp?v=2" alt="The iPOS dashboard on a phone showing today’s sales and 10 items running out" width="540" height="1169" loading="lazy" /></div>
               </div>
               <div>
                 <span className="lp-eyebrow dark">Stock</span>
@@ -197,7 +197,7 @@ export default function Landing({ auth }) {
 
           <section className="lp-feat">
             <div className="lp-wrap lp-feat-grid">
-              <div className="lp-feat-art lp-screen"><img src="/landing/05-profit-loss.webp" alt="The iPOS Profit and Loss statement for this quarter" width="1440" height="900" loading="lazy" /></div>
+              <div className="lp-feat-art lp-screen"><img src="/landing/05-profit-loss.webp?v=2" alt="The iPOS Profit and Loss statement for this quarter" width="1440" height="900" loading="lazy" /></div>
               <div>
                 <span className="lp-eyebrow dark">Profit and accounts</span>
                 <h2 className="lp-h2 left">Your books, done for you</h2>
