@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Wordmark from './Wordmark';
 import { Link, Navigate } from 'react-router-dom';
-import { MessageCircle, ArrowRight, ChevronDown, Menu, X, Minus, Plus, Check, Download } from 'lucide-react';
+import { MessageCircle, ArrowRight, ChevronDown, Menu, X, Minus, Plus, Check, Download, WifiOff, Smartphone, Languages, BadgeCheck } from 'lucide-react';
 import { isStandalone, readFlag, writeFlag } from './install';
 import { SITE, whatsappLink, kwacha } from './site-config';
 import { planPrice } from './plan-utils';
@@ -11,10 +11,11 @@ import './landing.css';
 
 const Icon = ({ name }) => <span className="lp-svg" dangerouslySetInnerHTML={{ __html: ICONS[name] }} />;
 
-const PILLARS = [
-  ['barcode', 'Sell', 'Scan, tap or search. Take cash, MTN, Airtel or card and share the receipt on WhatsApp.'],
-  ['package', 'Stock', 'Know what’s running low and how many days you have left, with a reorder list for each supplier.'],
-  ['chart-line-up', 'Accounts', 'Profit & Loss, Balance Sheet and a cashbook that fill themselves in as you sell.'],
+const TRUST = [
+  [WifiOff, 'Works offline'],
+  [Smartphone, 'MTN & Airtel money'],
+  [Languages, 'English, Bemba, Nyanja'],
+  [BadgeCheck, 'No card needed'],
 ];
 
 const STEPS = [
@@ -114,64 +115,37 @@ export default function Landing({ auth }) {
       </header>
 
       <main>
-        <section className="lp-hero">
+        {/* 1. Hero: photo, headline, one big button */}
+        <section className="lp-hero lp-hero-a">
           <div className="lp-wrap lp-hero-grid">
             <div className="lp-hero-text">
               <span className="lp-eyebrow">Point of sale for Zambian shops</span>
               <h1>Sell faster.<br />Lose less.<br /><em>Know your profit.</em></h1>
               <p>iPOS runs your till, stock, staff and accounts from one simple app, on the phone or computer you already have.</p>
               <div className="lp-cta-row">
-                <Link className="lp-btn lp-orange" to="/signup">Start your {p.trialDays}-day free trial <ArrowRight size={18} /></Link>
+                <Link className="lp-btn lp-orange lp-big-btn" to="/signup">Start your {p.trialDays}-day free trial <ArrowRight size={18} /></Link>
                 <a className="lp-btn lp-outline" href="#how">See how it works</a>
               </div>
-              <div className="lp-tags"><span>Works offline</span><span>Cash &amp; mobile money</span><span>English, Bemba, Nyanja</span></div>
+              <small className="lp-hero-note">No card needed · Cancel any time</small>
             </div>
             <picture className="lp-hero-photo">
               <source media="(max-width: 760px)" srcSet="/landing/hero-shop-small.webp" />
               <img src="/landing/hero-shop.webp" alt="A smiling customer at a shop counter while the cashier scans her items" width="1600" height="1267" fetchpriority="high" />
             </picture>
-            <PlanCard p={p} />
           </div>
         </section>
 
-        <p className="lp-quote">“Every sale counted, every kwacha accounted for, <span>even when the internet goes off.</span>”</p>
-
-        <section className="lp-pillars" id="features">
-          <div className="lp-wrap lp-grid3">
-            {PILLARS.map(([icon, title, text]) => (
-              <article className="lp-pill" key={title}><span className="lp-i"><Icon name={icon} /></span><h3>{title}</h3><p>{text}</p><Link to="/signup">Try it free <ArrowRight size={16} /></Link></article>
-            ))}
+        {/* 2. Trust strip */}
+        <div className="lp-trust">
+          <div className="lp-wrap lp-trust-row">
+            {TRUST.map(([I, text]) => <span key={text}><I size={18} /> {text}</span>)}
           </div>
-        </section>
+        </div>
 
-        <section className="lp-pay">
-          <div className="lp-wrap lp-pay-grid">
-            <CheckoutIllustration />
-            <div>
-              <span className="lp-eyebrow dark">Every way your customers pay</span>
-              <h2 className="lp-h2 left">Cash, mobile money or card. One till.</h2>
-              <ul className="lp-checks">
-                <li><Check size={18} /> <span><b>Cash</b> with the change worked out for you</span></li>
-                <li><Check size={18} /> <span><b>MTN and Airtel money</b> recorded on every sale, so the day adds up</span></li>
-                <li><Check size={18} /> <span><b>Card</b> on your own card machine</span></li>
-                <li><Check size={18} /> <span><b>Credit for regulars</b>, so you always know who owes what</span></li>
-              </ul>
-              <Link className="lp-btn lp-primary" to="/signup">Start your {p.trialDays}-day free trial <ArrowRight size={18} /></Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="lp-banner">
-          <div className="lp-wrap">
-            <div className="lp-box">
-              <div className="lp-box-phone" aria-hidden="true"><span className="lp-tag">Sale complete · K305</span><div className="lp-phone"><img src="/landing/phone-receipt.webp" alt="" width="540" height="1169" loading="lazy" /></div></div>
-              <div className="lp-box-text"><h2>Make a sale in seconds</h2><p>Scan the barcode with your phone camera, tap Complete sale, and the receipt is ready to send.</p><Link className="lp-btn lp-white" to="/signup">Start free trial</Link></div>
-            </div>
-          </div>
-        </section>
-
+        {/* 3. Three easy steps */}
         <section className="lp-steps" id="how">
           <div className="lp-wrap">
+            <span className="lp-eyebrow dark">How it works</span>
             <h2 className="lp-h2">Get your shop running in 3 easy steps</h2>
             <div className="lp-grid3">
               {STEPS.map(([img, title, text], i) => (
@@ -181,29 +155,82 @@ export default function Landing({ auth }) {
                 </div>
               ))}
             </div>
-            <Link className="lp-btn lp-primary" to="/signup">Start your {p.trialDays}-day free trial <ArrowRight size={18} /></Link>
           </div>
         </section>
 
-        <section className="lp-pay lp-queue">
-          <div className="lp-wrap lp-pay-grid">
-            <div>
-              <span className="lp-eyebrow dark">Busy days made easy</span>
-              <h2 className="lp-h2 left">Shorter queues at the till</h2>
-              <ul className="lp-checks">
-                <li><Check size={18} /> <span><b>Scan or search</b> and the item is on the bill in a second</span></li>
-                <li><Check size={18} /> <span><b>Several tills at once</b>, each cashier on their own phone or computer</span></li>
-                <li><Check size={18} /> <span><b>Receipts by WhatsApp</b> or printed, so customers are on their way fast</span></li>
-              </ul>
-              <Link className="lp-btn lp-primary" to="/signup">Start your {p.trialDays}-day free trial <ArrowRight size={18} /></Link>
+        {/* 4-7. Feature rows, picture and words swap sides */}
+        <div id="features" className="lp-features">
+          <section className="lp-feat">
+            <div className="lp-wrap lp-feat-grid">
+              <div className="lp-feat-art"><CheckoutIllustration /></div>
+              <div>
+                <span className="lp-eyebrow dark">Sell and get paid</span>
+                <h2 className="lp-h2 left">Cash, mobile money or card. One till.</h2>
+                <ul className="lp-checks">
+                  <li><Check size={18} /> <span><b>Scan, tap or search</b> and the item is on the bill in a second</span></li>
+                  <li><Check size={18} /> <span><b>Cash</b> with the change worked out for you</span></li>
+                  <li><Check size={18} /> <span><b>MTN and Airtel money</b> recorded on every sale, so the day adds up</span></li>
+                  <li><Check size={18} /> <span><b>Card</b> on your own card machine</span></li>
+                  <li><Check size={18} /> <span><b>Credit for regulars</b>, so you always know who owes what</span></li>
+                </ul>
+              </div>
             </div>
-            <figure className="lp-queue-art">
-              <img src="/landing/queue-illustration.webp" alt="Customers with shopping bags queue at a shop counter while the cashier serves them" width="1200" height="770" loading="lazy" />
-              <figcaption>Illustration: Freepik</figcaption>
-            </figure>
-          </div>
-        </section>
+          </section>
 
+          <section className="lp-feat lp-soft">
+            <div className="lp-wrap lp-feat-grid flip">
+              <div className="lp-feat-art lp-phone-stage">
+                <span className="lp-tag">Running out · 10 items</span>
+                <div className="lp-phone"><img src="/landing/phone-dashboard.webp" alt="The iPOS dashboard on a phone showing today’s sales and 10 items running out" width="540" height="1169" loading="lazy" /></div>
+              </div>
+              <div>
+                <span className="lp-eyebrow dark">Stock</span>
+                <h2 className="lp-h2 left">Never run out of what sells</h2>
+                <ul className="lp-checks">
+                  <li><Check size={18} /> <span><b>Know what’s running low</b> and how many days you have left</span></li>
+                  <li><Check size={18} /> <span><b>A reorder list for each supplier</b>, ready in one tap</span></li>
+                  <li><Check size={18} /> <span><b>Stock transfers</b> between branches, all counted</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section className="lp-feat">
+            <div className="lp-wrap lp-feat-grid">
+              <div className="lp-feat-art lp-screen"><img src="/landing/05-profit-loss.webp" alt="The iPOS Profit and Loss statement for this quarter" width="1440" height="900" loading="lazy" /></div>
+              <div>
+                <span className="lp-eyebrow dark">Profit and accounts</span>
+                <h2 className="lp-h2 left">Your books, done for you</h2>
+                <ul className="lp-checks">
+                  <li><Check size={18} /> <span><b>Profit &amp; Loss and Balance Sheet</b> updated with every sale</span></li>
+                  <li><Check size={18} /> <span><b>A cashbook</b> that shows where every kwacha went</span></li>
+                  <li><Check size={18} /> <span><b>Download to Excel</b> any time for your accountant</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section className="lp-feat lp-soft">
+            <div className="lp-wrap lp-feat-grid flip">
+              <figure className="lp-feat-art lp-queue-art">
+                <img src="/landing/queue-illustration.webp" alt="Customers with shopping bags queue at a shop counter while the cashier serves them" width="1200" height="770" loading="lazy" />
+                <figcaption>Illustration: Freepik</figcaption>
+              </figure>
+              <div>
+                <span className="lp-eyebrow dark">Busy days made easy</span>
+                <h2 className="lp-h2 left">Shorter queues, even offline</h2>
+                <ul className="lp-checks">
+                  <li><Check size={18} /> <span><b>Make a sale in seconds</b>: scan with the phone camera, tap Complete sale</span></li>
+                  <li><Check size={18} /> <span><b>Several tills at once</b>, each cashier on their own phone or computer</span></li>
+                  <li><Check size={18} /> <span><b>Receipts by WhatsApp</b> or printed, so customers are on their way fast</span></li>
+                  <li><Check size={18} /> <span><b>Keeps selling when the internet goes off</b>, and catches up when it’s back</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* 8. Every kind of shop */}
         <section className="lp-types">
           <div className="lp-wrap">
             <h2 className="lp-h2">Made for every kind of shop</h2>
@@ -215,18 +242,25 @@ export default function Landing({ auth }) {
           </div>
         </section>
 
-        <section className="lp-band">
-          <div className="lp-wrap lp-band-grid">
-            <div><h2>Keeps selling when the internet goes off</h2><p>Sales are saved on the device and sent automatically when you’re back online, so load-shedding and network problems never stop your till.</p></div>
-            <div className="lp-stats">
-              <div><b>{p.trialDays} days</b><span>free trial, no card</span></div>
-              <div><b>{kwacha(p.monthly)}</b><span>per month, everything included</span></div>
-              <div><b>3</b><span>languages for your cashiers</span></div>
-              <div><b>Any</b><span>phone, tablet or computer</span></div>
+        {/* 9. Pricing with the plan calculator */}
+        <section className="lp-price-sec">
+          <div className="lp-wrap lp-price-grid">
+            <div>
+              <span className="lp-eyebrow">Pricing</span>
+              <h2>One simple price. Everything included.</h2>
+              <p>Till, stock, staff, reports and accounts for {kwacha(p.monthly)} a month. Pay monthly or yearly by MTN Money, Airtel Money or bank transfer.</p>
+              <div className="lp-stats">
+                <div><b>{p.trialDays} days</b><span>free trial, no card</span></div>
+                <div><b>{kwacha(p.monthly)}</b><span>per month, everything included</span></div>
+                <div><b>3</b><span>languages for your cashiers</span></div>
+                <div><b>Any</b><span>phone, tablet or computer</span></div>
+              </div>
             </div>
+            <PlanCard p={p} />
           </div>
         </section>
 
+        {/* 10. Questions */}
         <section className="lp-faq-sec" id="faq">
           <div className="lp-wrap lp-narrow">
             <h2 className="lp-h2">Questions</h2>
@@ -237,6 +271,26 @@ export default function Landing({ auth }) {
               </div>))}
             </div>
             {wa && <div className="lp-center"><a className="lp-btn lp-ghost" href={wa} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Ask us on WhatsApp</a></div>}
+          </div>
+        </section>
+
+        {/* 11. Final call to action with the install QR code */}
+        <section className="lp-final">
+          <div className="lp-wrap">
+            <div className="lp-final-box">
+              <div>
+                <h2>Every sale counted, every kwacha accounted for.</h2>
+                <p>Start free today. It takes about five minutes to set up your shop.</p>
+                <div className="lp-cta-row">
+                  <Link className="lp-btn lp-orange" to="/signup">Start your {p.trialDays}-day free trial <ArrowRight size={18} /></Link>
+                  <Link className="lp-btn lp-outline" to="/install"><Download size={18} /> Get the app</Link>
+                </div>
+              </div>
+              <Link to="/install" className="lp-final-qr" aria-label="Get the iPOS app">
+                <span className="lp-qr-code"><img src="/install-qr.svg" alt="QR code to install the iPOS app" width="150" height="150" /><img className="lp-qr-logo" src="/icon-192.png" alt="" width="34" height="34" /></span>
+                <b>Scan to get the app</b>
+              </Link>
+            </div>
           </div>
         </section>
       </main>
